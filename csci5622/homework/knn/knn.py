@@ -63,10 +63,6 @@ class Knearest:
         #
         # http://docs.scipy.org/doc/numpy/reference/generated/numpy.median.html
         
-        """
-        Since the values of y are either 1 or -1, I will add by 1 and use the bincount
-        Now the values are either 0 or 2
-        """
         nearest_labels = [self._y[x] for x in item_indices]
 
         labels_dic = defaultdict(int)

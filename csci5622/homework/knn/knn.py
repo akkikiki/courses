@@ -68,15 +68,35 @@ class Knearest:
         Now the values are either 0 or 2
         """
         nearest_labels = [self._y[x] for x in item_indices]
-        counts = numpy.bincount(map(lambda x: x + 1, nearest_labels))
+        # counts = numpy.bincount(map(lambda x: x + 1, nearest_labels))
         #print self._y
         #print counts
 
-        if len(counts) == 3 and counts[0] == counts[2]:
-            # handling cases that only labels -1 exist as k-nearest neighbors
-            return numpy.median(counts) - 1
+        labels_dic = defaultdict(int)
+        for i in nearest_labels:
+            labels_dic[i] += 1
+
+        # TODO: You should not assume that the classes are only two!
+        # TODO: constructing a dictionary type here
+        # if len(counts) == 3 and counts[0] == counts[2]:
+        #     # handling cases that only labels -1 exist as k-nearest neighbors
+        #     return numpy.median(counts) - 1
+        # else:
+        #     return numpy.argmax(counts) - 1
+
+        num_labels = labels_dic.values()
+        # TODO: Find duplicates or ties!
+        num_labels_set = set(num_labels)
+        # TODO: Does this part really finiding ties?
+        if len(num_labels) != len(num_labels_set):
+            return numpy.median(nearest_labels)
         else:
-            return numpy.argmax(counts) - 1
+            # TODO: This part should be finding ties!
+            # sort by the values, not by the keys
+
+            a = sorted(labels_dic.items(), key= lambda x:x[1], reverse=True)[0][1]
+
+            return a
 
         #return self._y[item_indices[0]]
 

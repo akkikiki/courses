@@ -57,14 +57,28 @@ class Knearest:
         :param item_indices: The indices of the k nearest neighbors
         """
         assert len(item_indices) == self._k, "Did not get k inputs"
-
         # Finish this function to return the most common y label for
         # the given indices.  The current return value is a placeholder 
         # and definitely needs to be changed. 
         #
         # http://docs.scipy.org/doc/numpy/reference/generated/numpy.median.html
+        
+        """
+        Since the values of y are either 1 or -1, I will add by 1 and use the bincount
+        Now the values are either 0 or 2
+        """
+        nearest_labels = [self._y[x] for x in item_indices]
+        counts = numpy.bincount(map(lambda x: x + 1, nearest_labels))
+        #print self._y
+        #print counts
 
-        return self._y[item_indices[0]]
+        if len(counts) == 3 and counts[0] == counts[2]:
+            # handling cases that only labels -1 exist as k-nearest neighbors
+            return numpy.median(counts) - 1
+        else:
+            return numpy.argmax(counts) - 1
+
+        #return self._y[item_indices[0]]
 
     def classify(self, example):
         """
@@ -78,9 +92,9 @@ class Knearest:
         # majority function, and return the predicted label.
         # Again, the current return value is a placeholder 
         # and definitely needs to be changed. 
+        dist, indice = self._kdtree.query(example, k=self._k)
 
-        return self.majority(list(random.randrange(len(self._y)) \
-                                  for x in xrange(self._k)))
+        return self.majority(indice[0])
 
     def confusion_matrix(self, test_x, test_y):
         """
@@ -100,9 +114,14 @@ class Knearest:
         d = defaultdict(dict)
         data_index = 0
         for xx, yy in zip(test_x, test_y):
+
+            # if test_y[data_index] != self.classify(test_x):
+            #     d[xx] =
+
             data_index += 1
             if data_index % 100 == 0:
                 print("%i/%i for confusion matrix" % (data_index, len(test_x)))
+
         return d
 
     @staticmethod

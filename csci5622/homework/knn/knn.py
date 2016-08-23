@@ -111,12 +111,12 @@ class Knearest:
         # mislabeled examples.  You'll need to call the classify
         # function for each example.
 
-        d = defaultdict(dict)
+        # d = defaultdict(dict)
+        d = defaultdict(lambda: defaultdict(int))
         data_index = 0
         for xx, yy in zip(test_x, test_y):
 
-            # if test_y[data_index] != self.classify(test_x):
-            #     d[xx] =
+            d[yy][self.classify(xx)] += 1
 
             data_index += 1
             if data_index % 100 == 0:

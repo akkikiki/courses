@@ -62,7 +62,7 @@ class Knearest:
         # and definitely needs to be changed. 
         #
         # http://docs.scipy.org/doc/numpy/reference/generated/numpy.median.html
-        
+
         nearest_labels = [self._y[x] for x in item_indices]
 
         labels_dic = defaultdict(int)
@@ -172,3 +172,5 @@ if __name__ == "__main__":
         print("%i:\t" % ii + "\t".join(str(confusion[ii].get(x, 0))
                                        for x in xrange(10)))
     print("Accuracy: %f" % knn.accuracy(confusion))
+    output_file = open("accuracies.txt", "a")
+    output_file.write(str(args.limit) + "\t" + str(knn.accuracy(confusion)) + "\n")

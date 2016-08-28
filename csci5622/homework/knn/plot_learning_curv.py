@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib
 import matplotlib.pyplot as plt
 # http://scikit-learn.org/stable/auto_examples/model_selection/plot_learning_curve.html
 
@@ -28,27 +29,32 @@ def plot_learning_curve(title):
         Number of jobs to run in parallel (default 1).
     """
     plt.figure(figsize=(10,5))
+    matplotlib.rcParams.update({'font.size': 16})
+
     # plt.title(title)
     ylim=(0.70, 1.00)
     if ylim is not None:
         plt.ylim(*ylim)
+    #plt.xlim((0, 10500))
     #plt.xlabel("Number of training data")
-    plt.xlabel("The value of k")
-    plt.ylabel("Accuracy")
     #train_sizes = range(500, 10500, 500) # size of the training data. len(train_sizes) = 19
+    plt.xlim((0, 21))
+    plt.xlabel("The value of k")
     train_sizes = range(1, 21) # size of the training data. len(train_sizes) = 19
-    print train_sizes
-    print len(train_sizes)
+    plt.ylabel("Accuracy")
     accuracy = []
-    for line in open("accuracies.txt"):
+    #for line in open("accuracies.txt"):
+    #for line in open("learning_curve_accuracies.txt"):
+    for line in open("k_accuracies.txt"):
         accuracy.append(float(line[:-1].split()[1]))
     print len(accuracy)
     assert len(accuracy) == len(train_sizes)
     plt.grid()
     plt.plot(train_sizes, accuracy, 'o-', color="r", label="Accuracy")
 
-    # plt.legend(loc="best")
-    plt.legend(loc=4)
+    plt.legend(loc="best")
+    #plt.legend(loc=4)
+    #plt.legend(loc=2)
     return plt
 
 title = "Learning Curves"

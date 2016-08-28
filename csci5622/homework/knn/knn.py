@@ -47,6 +47,8 @@ class Knearest:
         self._kdtree = BallTree(x)
         self._y = y
         self._k = k
+        self.median_triggered = defaultdict(int) # For analysis
+
 
     def majority(self, item_indices):
         """
@@ -69,14 +71,16 @@ class Knearest:
         for i in nearest_labels:
             labels_dic[i] += 1
 
-        # You should not assume that the target classes are only two!
-        top_occuring_label, top_occuring_label_val = sorted(labels_dic.items(), key= lambda x:x[1], reverse=True)[0]
+        # You should not assume that the target classes are only two
+        labels_occur_sorted = sorted(labels_dic.items(), key= lambda x:x[1], reverse=True)
+        top_occuring_label, top_occuring_label_val = labels_occur_sorted[0]
 
-        # This part should be finding ties!
+        # Finding if there is a tie
         if len(labels_dic) > 1:
-            second_occuring_label, second_occuring_label_val = sorted(labels_dic.items(), key= lambda x:x[1], reverse=True)[1]
+            second_occuring_label, second_occuring_label_val = labels_occur_sorted[1]
 
             if top_occuring_label_val == second_occuring_label_val:
+                self.median_triggered[(top_occuring_label, second_occuring_label)] += 1
                 return numpy.median(nearest_labels)
 
         return top_occuring_label
@@ -112,9 +116,15 @@ class Knearest:
         # mislabeled examples.  You'll need to call the classify
         # function for each example.
 
-        # d = defaultdict(dict)
+        # Can handle cases when the returned class is in decimals (e.g. 1.5)
         d = defaultdict(lambda: defaultdict(int))
         data_index = 0
+
+        # To guarantee that the confusion matrix is in 10 rows and 10 columns
+        for ii in set(test_y):
+            for jj in set(test_y):
+                d[ii][jj] = 0
+
         for xx, yy in zip(test_x, test_y):
 
             d[yy][self.classify(xx)] += 1
@@ -165,12 +175,27 @@ if __name__ == "__main__":
         knn = Knearest(data.train_x, data.train_y, args.k)
     print("Done loading data")
 
+    output_conf_matrices = open("confusion_matrices.txt", "a")
+    output_conf_matrices.write("k = %d, limit = %d" % (args.k, args.limit) + "\n")
     confusion = knn.confusion_matrix(data.test_x, data.test_y)
     print("\t" + "\t".join(str(x) for x in xrange(10)))
+    output_conf_matrices.write("\t" + "\t".join(str(x) for x in xrange(10)) + "\n")
     print("".join(["-"] * 90))
+    output_conf_matrices.write("".join(["-"] * 90) + "\n")
     for ii in xrange(10):
+        # Outputting confusion matrices for future analysis
         print("%i:\t" % ii + "\t".join(str(confusion[ii].get(x, 0))
                                        for x in xrange(10)))
+        output_conf_matrices.write("%i:\t" % ii + "\t".join(str(confusion[ii].get(x, 0))
+                                       for x in xrange(10)))
+        output_conf_matrices.write("\n")
     print("Accuracy: %f" % knn.accuracy(confusion))
+
+    # Outputting accuracies to plot it later.
     output_file = open("accuracies.txt", "a")
     output_file.write(str(args.limit) + "\t" + str(knn.accuracy(confusion)) + "\n")
+
+    # Outputting the occurrences of the median tie-breaker.
+    for k, v in sorted(knn.median_triggered.items(), key=lambda x:x[1], reverse=True):
+        print("median tie-breaker triggered %d times between %d and %d" % (v, k[0], k[1]))
+

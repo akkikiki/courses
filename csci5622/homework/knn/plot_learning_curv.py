@@ -27,14 +27,16 @@ def plot_learning_curve(title):
     n_jobs : integer, optional
         Number of jobs to run in parallel (default 1).
     """
-    plt.figure()
+    plt.figure(figsize=(10,5))
     # plt.title(title)
-    ylim=(0.00, 1.00)
+    ylim=(0.70, 1.00)
     if ylim is not None:
         plt.ylim(*ylim)
-    plt.xlabel("Number of training data")
+    #plt.xlabel("Number of training data")
+    plt.xlabel("The value of k")
     plt.ylabel("Accuracy")
-    train_sizes = range(500, 10500, 500) # size of the training data. len(train_sizes) = 19
+    #train_sizes = range(500, 10500, 500) # size of the training data. len(train_sizes) = 19
+    train_sizes = range(1, 21) # size of the training data. len(train_sizes) = 19
     print train_sizes
     print len(train_sizes)
     accuracy = []

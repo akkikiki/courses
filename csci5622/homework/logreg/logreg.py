@@ -100,15 +100,19 @@ class LogReg:
         """
         
         # TODO: Implement updates in this function
+        # TODO: Implement regularization
         print(train_example.y) # class label
-        print(train_example.x)
-        print(self.w)
+        # print(train_example.x)
+        # print(self.w)
 
-        muii = (train_example.y - sigmoid(np.dot(self.w, train_example.x)))
-        eta = 1 # learning rate
-        for kk in range(len(self.w)):
-            derivative = muii * train_example.x[kk]
-            self.w[kk] = self.w[kk] + eta * derivative
+        muii = train_example.y - sigmoid(np.dot(self.w, train_example.x))
+
+        self.w[0] += self.eta(iteration) * muii * train_example.x[0] # bias
+
+        for kk in range(1, len(self.w)):
+            # self.w[kk] = self.w[kk] + self.eta(iteration) * (muii * train_example.x[kk] - 2.0 * self.lam * self.w[kk])
+            self.w[kk] += self.eta(iteration) * (muii * train_example.x[kk] - 2.0 * self.lam * self.w[kk])
+        print("printing out the weights")
         print(self.w)
 
         return self.w

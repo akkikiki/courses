@@ -4,6 +4,7 @@ import argparse
 from numpy import zeros, sign 
 from math import exp, log
 from collections import defaultdict
+import numpy as np
 
 
 kSEED = 1735
@@ -99,6 +100,16 @@ class LogReg:
         """
         
         # TODO: Implement updates in this function
+        print(train_example.y) # class label
+        print(train_example.x)
+        print(self.w)
+
+        muii = (train_example.y - sigmoid(np.dot(self.w, train_example.x)))
+        eta = 1 # learning rate
+        for kk in range(len(self.w)):
+            derivative = muii * train_example.x[kk]
+            self.w[kk] = self.w[kk] + eta * derivative
+        print(self.w)
 
         return self.w
 

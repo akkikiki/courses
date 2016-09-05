@@ -72,9 +72,9 @@ Specifically, the test examples that are labeled $4$ are mistakenly classified a
 % TODO: probably better to have a table here?
 Let $limit$ be the number of training examples. 
 By further analyzing the possible causes of misclassification, the median tie-breaker between $4$ and $9$ happened the most ($72$ times) when $k = 3$ and $limit = 500$. 
-It is possible that the median tie-breaker is causing many misclassifications, because the number of misclassified examples that are labeled $4$ but mistakenly classified as $9$ are $155$. 
+It is possible that the median tie-breaker is causing many misclassifications, because if all of median tie-breaker is causing misclassification, then it covers around half ($72/155$) of the total number of misclassified examples between $4$ and $9$. 
 However, we did some further investigation on larger $k$ and larger $limit$. 
-When $k = 19$ and $limit = 5000$, the median tie-breaker happened $8$ times but the $62$ test examples of the number $4$ are misclassified as $9$.
+When $k = 19$ and $limit = 5000$, the median tie-breaker happened only $8$ times and $62$ test examples of the number $4$ are misclassified as $9$.
 
 In conclusion, the median tie-breaker does not contribute a lot to the most misclassified test examples of $4$ and $9$, and we infer that the misclassification is mainly caused by having a similar strcuture.
 

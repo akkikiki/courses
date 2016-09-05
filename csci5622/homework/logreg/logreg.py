@@ -1,5 +1,6 @@
 import random
 import argparse
+import math
 
 from numpy import zeros, sign 
 from math import exp, log
@@ -110,10 +111,19 @@ class LogReg:
         self.w[0] += self.eta(iteration) * muii * train_example.x[0] # bias
 
         for kk in range(1, len(self.w)):
+            if train_example.x[kk] != 0:
+                self.w[kk] += self.eta(iteration) * (muii * train_example.x[kk])
+                # self.w[kk] *= math.pow(1.0 - self.eta(iteration) * 2.0 * self.lam * self.w[kk], iteration + 1 - self.last_update.get(kk, 0))
+                # Lazy Sparse Regularization
+                # https://lingpipe.files.wordpress.com/2008/04/lazysgdregression.pdf
+                self.w[kk] *= math.pow(1.0 - self.eta(iteration) * 2.0 * self.lam, iteration + 1 - self.last_update.get(kk, 0))
+                self.last_update[kk] = iteration + 1
+                #
             # self.w[kk] = self.w[kk] + self.eta(iteration) * (muii * train_example.x[kk] - 2.0 * self.lam * self.w[kk])
-            self.w[kk] += self.eta(iteration) * (muii * train_example.x[kk] - 2.0 * self.lam * self.w[kk])
+
         print("printing out the weights")
         print(self.w)
+        print("---")
 
         return self.w
 

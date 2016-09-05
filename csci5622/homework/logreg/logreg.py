@@ -1,3 +1,4 @@
+# Author: Yoshinari Fujinuma
 import random
 import argparse
 import math
@@ -42,6 +43,7 @@ class Example:
         self.nonzero = {}
         self.y = label
         self.x = zeros(len(vocab))
+        self.df = df
         for word, count in [x.split(":") for x in words]:
             if word in vocab:
                 assert word != kBIAS, "Bias can't actually appear in document"
@@ -51,7 +53,7 @@ class Example:
 
 
 class LogReg:
-    def __init__(self, num_features, lam, eta=lambda x: 0.1):
+    def __init__(self, num_features, lam, eta=lambda x: 0.1, total_num_docs=0):
         """
         Create a logistic regression classifier
 
@@ -62,8 +64,11 @@ class LogReg:
         
         self.w = zeros(num_features)
         self.lam = lam
+        # Comment out the following if you want to enable the scheduling function
+        # self.eta = eta_schedule
         self.eta = eta
         self.last_update = defaultdict(int)
+        self.total_num_docs = total_num_docs
 
         assert self.lam>= 0, "Regularization parameter must be non-negative"
 
@@ -101,29 +106,24 @@ class LogReg:
         """
         
         # TODO: Implement updates in this function
-        # TODO: Implement regularization
-        print(train_example.y) # class label
-        # print(train_example.x)
-        # print(self.w)
-
-        muii = train_example.y - sigmoid(np.dot(self.w, train_example.x))
+        if use_tfidf:
+            tf_idf_x = [train_example.x[i] * log(self.total_num_docs / (1 + train_example.df[i])) for i in range(len(train_example.x))]
+            muii = train_example.y - sigmoid(np.dot(self.w, tf_idf_x))
+        else:
+            muii = train_example.y - sigmoid(np.dot(self.w, train_example.x))
 
         self.w[0] += self.eta(iteration) * muii * train_example.x[0] # bias
 
         for kk in range(1, len(self.w)):
             if train_example.x[kk] != 0:
-                self.w[kk] += self.eta(iteration) * (muii * train_example.x[kk])
-                # self.w[kk] *= math.pow(1.0 - self.eta(iteration) * 2.0 * self.lam * self.w[kk], iteration + 1 - self.last_update.get(kk, 0))
-                # Lazy Sparse Regularization
-                # https://lingpipe.files.wordpress.com/2008/04/lazysgdregression.pdf
+                if use_tfidf:
+                    tf_idf_x = [train_example.x[i] * log(self.total_num_docs / (1 + train_example.df[i])) for i in range(len(train_example.x))]
+                    self.w[kk] += self.eta(iteration) * (muii * tf_idf_x[kk])
+                else:
+                    self.w[kk] += self.eta(iteration) * (muii * train_example.x[kk])
+                # Lazy Sparse Regularization, https://lingpipe.files.wordpress.com/2008/04/lazysgdregression.pdf
                 self.w[kk] *= math.pow(1.0 - self.eta(iteration) * 2.0 * self.lam, iteration + 1 - self.last_update.get(kk, 0))
                 self.last_update[kk] = iteration + 1
-                #
-            # self.w[kk] = self.w[kk] + self.eta(iteration) * (muii * train_example.x[kk] - 2.0 * self.lam * self.w[kk])
-
-        print("printing out the weights")
-        print(self.w)
-        print("---")
 
         return self.w
 
@@ -161,6 +161,11 @@ def read_dataset(positive, negative, vocab, test_proportion=0.1):
 def eta_schedule(iteration):
     # TODO (extra credit): Update this function to provide an
     # EFFECTIVE iteration dependent learning rate size.  
+    """
+    0.1 / ((1.0*iteration / 100) + 1) is used to compute the graph shown in Figure 3 of the analysis report.
+    However, in order not to break the unit tests, I've commented out the scheduling function.
+    """
+    #return 0.1 / ((1.0*iteration / 100) + 1)
     return 1.0 
 
 if __name__ == "__main__":
@@ -177,24 +182,39 @@ if __name__ == "__main__":
                            type=str, default="../data/hockey_baseball/vocab", required=False)
     argparser.add_argument("--passes", help="Number of passes through train",
                            type=int, default=1, required=False)
+    argparser.add_argument("--tfidf", help="Use tfidf as the feature",
+                           type=bool, default=False, required=False)
 
     args = argparser.parse_args()
     train, test, vocab = read_dataset(args.positive, args.negative, args.vocab)
 
     print("Read in %i train and %i test" % (len(train), len(test)))
 
+    # Logging file
+    if args.passes != 1:
+        log_file = open("learning_rate_%s_passes_%s.txt" % (args.eta, args.passes), "a")
+    else:
+        log_file = open("learning_rage_%s.txt" % args.eta, "a")
+    
     # Initialize model
-    lr = LogReg(len(vocab), args.lam, lambda x: args.eta)
+    lr = LogReg(len(vocab), args.lam, lambda x: args.eta, len(train))
 
     # Iterations
     iteration = 0
     for pp in xrange(args.passes):
         random.shuffle(train)
         for ex in train:
-            lr.sg_update(ex, iteration)
+            lr.sg_update(ex, iteration, args.tfidf)
             if iteration % 5 == 1:
                 train_lp, train_acc = lr.progress(train)
                 ho_lp, ho_acc = lr.progress(test)
                 print("Update %i\tTP %f\tHP %f\tTA %f\tHA %f" %
                       (iteration, train_lp, ho_lp, train_acc, ho_acc))
+                # TODO: save the log to an external file
+                log_file.write("Update %i\tTP %f\tHP %f\tTA %f\tHA %f\n" %
+                      (iteration, train_lp, ho_lp, train_acc, ho_acc))
             iteration += 1
+
+    # Printing out the words and the learned weights
+    for k, v in sorted(zip(vocab, lr.w), key=lambda x:x[1], reverse=True):
+        print(k, v)

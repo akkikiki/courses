@@ -65,6 +65,17 @@ def find_slack(x, y, w, b):
 
     slack = set()
     # TODO: IMPLEMENT THIS FUNCTION
+    # How do I compute the slack variable
+    # Slide 21 of
+    # http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson06/lesson06.pdf
+
+    # y[i] * (np.dot(w, x[i]) + b) >= 1 - slack
+    # So the examples with y[i] * (np.dot(w, x[i]) + b) < 1
+    for i in range(len(x)):
+        if y[i] * (np.dot(w, x[i]) + b) < 1:
+            slack.add(i)
+            # print(i, x)
+
     return slack
 
 

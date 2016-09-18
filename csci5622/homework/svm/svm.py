@@ -26,6 +26,14 @@ def weight_vector(x, y, alpha):
 
     w = np.zeros(len(x[0]))
     # TODO: IMPLEMENT THIS FUNCTION
+    # Slide 45 of http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson05/lesson05.pdf
+    # Computed using the derivation of w
+    # for j in range(len(w)):
+    #     for i in range(len(alpha)):
+    #         w[j] += alpha[i] * y[i] * x[i][j]
+    # for j in range(len(w)):
+    for i in range(len(alpha)):
+        w += alpha[i] * y[i] * x[i]
     return w
 
 
@@ -38,6 +46,13 @@ def find_support(x, y, w, b, tolerance=0.001):
 
     support = set()
     # TODO: IMPLEMENT THIS FUNCTION
+    # What does the tolerence mean?
+    # Return the indices of all support vector
+    for i in range(len(x)):
+        distance = y[i] * (np.dot(w, x[i]) + b)
+        if np.isclose(distance, np.float64(1.0), atol=tolerance):
+            support.add(i) # adding the training example indices that are support vectors.
+
     return support
 
 

@@ -1,0 +1,41 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{color}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage{url}
+%\usepackage{floatrow}
+\usepackage[font=small,labelfont=bf,tableposition=top]{caption}
+\DeclareCaptionLabelFormat{tableonly}{\tablename~\thetable}
+%\newfloatcommand{capbtabbox}{table}[][\FBwidth]
+
+
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+
+\begin{document}
+\vspace{-1cm}
+\title{\vspace{-2ex}Analysis Report on Assignment 3: SVM\vspace{-2ex}}
+\author{Yoshinari Fujinuma\vspace{-2ex}}
+\date{\vspace{-2ex}}
+\maketitle
+
+The ratio of train size to test size is $8:2$.
+
+Results by RBF kernel
+Hold out accuracy for C = 0.01: 0.891402714932
+Hold out accuracy for C = 0.1: 0.952740070387
+Hold out accuracy for C = 1.0: 0.967320261438
+Hold out accuracy for C = 10.0: 0.979386626445
+Hold out accuracy for C = 100.0: 0.987933634992
+
+
+Results by Linear kernel
+Kernel = linear, C = 0.01, Hold out accuracy = 0.967320261438
+Kernel = linear, C = 0.1, Hold out accuracy = 0.967320261438
+Kernel = linear, C = 1.0, Hold out accuracy = 0.963298139769
+Kernel = linear, C = 10.0, Hold out accuracy = 0.954751131222
+Kernel = linear, C = 100.0, Hold out accuracy = 0.956762192056
+
+\end{document}

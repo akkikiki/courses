@@ -1,4 +1,5 @@
-import numpy as np 
+# Author: Yoshinari Fujinuma
+import numpy as np
 
 kINSP = np.array([(1, 8, +1),
                (7, 2, -1),

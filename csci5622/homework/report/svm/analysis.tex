@@ -16,26 +16,86 @@
 
 \begin{document}
 \vspace{-1cm}
-\title{\vspace{-2ex}Analysis Report on Assignment 3: SVM\vspace{-2ex}}
+%\title{\vspace{-2ex}Analysis Report on Assignment 3: SVM\vspace{-2ex}}
+\title{Analysis Report on Assignment 3: SVM}
 \author{Yoshinari Fujinuma\vspace{-2ex}}
 \date{\vspace{-2ex}}
 \maketitle
 
-The ratio of train size to test size is $8:2$.
+The ratio of train size to test size is $8:2$. 
+In general, the larger the C is, the smaller the margin becomes.
+For the RBF kernel, the larger the C becomes, the better the held accuracy becomes.
+The RBF kernel has more expressive power than the linear kernel so if the RBF kernel accpets misclassification examples, it tends to overfit. Therefore, the smaller the margin is, the better the classification accuracy becomes.
+For the linear kernel, the larger the C becomes, the held accuracy becomes slightly worse. This shows that the decision boundary does not differ much by how large the margin is.
 
-Results by RBF kernel
-Hold out accuracy for C = 0.01: 0.891402714932
-Hold out accuracy for C = 0.1: 0.952740070387
-Hold out accuracy for C = 1.0: 0.967320261438
-Hold out accuracy for C = 10.0: 0.979386626445
-Hold out accuracy for C = 100.0: 0.987933634992
+\begin{figure}[htb]
+  %\vspace{-1.1cm}
+  \begin{center}
+   \begin{tabular}{c}
+    \begin{minipage}{0.5\hsize}
+     %\vspace{-0.5cm}
+     \begin{center}
+     %\scalebox{0.25}
+     \scalebox{0.33}
+      {\includegraphics[]{figure_4_C.png}}
+   
+      \caption{\label{stopping_criterion}Different C values for SVM with the linear kernel.}
+      \label{fig:learning_rate}
+     \end{center}
+    \end{minipage}
+
+    \begin{minipage}{0.01\hsize}
+    \end{minipage}
+
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \scalebox{0.33}
+      {\includegraphics[]{figure_3_C.png}}
+      \caption{\label{stopping_criterion}Different C values for SVM with the RBF kernel.}
+     \end{center}
+    \end{minipage}
+
+  \end{tabular}
+ \end{center}
+\vspace{-0.5cm}
+\end{figure}
 
 
-Results by Linear kernel
-Kernel = linear, C = 0.01, Hold out accuracy = 0.967320261438
-Kernel = linear, C = 0.1, Hold out accuracy = 0.967320261438
-Kernel = linear, C = 1.0, Hold out accuracy = 0.963298139769
-Kernel = linear, C = 10.0, Hold out accuracy = 0.954751131222
-Kernel = linear, C = 100.0, Hold out accuracy = 0.956762192056
+
+
+\begin{figure}[htb]
+  %\vspace{-1.1cm}
+  \begin{center}
+   \begin{tabular}{c}
+    \begin{minipage}{0.5\hsize}
+     %\vspace{-0.5cm}
+     \begin{center}
+     %\scalebox{0.25}
+     \scalebox{0.33}
+      {\includegraphics[]{figure_1.png}}
+   
+      \caption{The support vector for class $3$. }
+      \label{fig:learning_rate}
+     \end{center}
+    \end{minipage}
+
+    \begin{minipage}{0.01\hsize}
+    \end{minipage}
+
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+      \scalebox{0.33}
+      {\includegraphics[]{figure_2.png}}
+      \caption{\label{stopping_criterion}The support vector for class $8$.}
+     \end{center}
+    \end{minipage}
+
+  \end{tabular}
+ \end{center}
+\vspace{-0.5cm}
+\end{figure}
+
+The support vectors do catch difficult examples like $3$ does lack the bottomo stroke. The $8$ support vector have only two very narrow circles which makes the structure close to $3$.
+
 
 \end{document}

@@ -30,6 +30,20 @@ class Numbers:
         self.test_x, self.test_y = valid_set
         f.close()
 
+def mnist_digit_show(flatimage, outname=None):
+
+	import matplotlib.pyplot as plt
+
+	image = np.reshape(flatimage, (-1,28))
+
+	plt.matshow(image, cmap=plt.cm.binary)
+	plt.xticks([])
+	plt.yticks([])
+	if outname: 
+	    plt.savefig(outname)
+	else:
+	    plt.show()
+
 data = Numbers("../data/mnist.pkl.gz")
 X = []
 y = []
@@ -46,7 +60,8 @@ for i in range(len(data.train_y)):
         X.append(data.train_x[i])
  
 
-C_valids = [0.01, 0.1, 1.0, 10.0, 100.0]
+#C_valids = [0.01, 0.1, 1.0, 10.0, 100.0]
+C_valids = [1.0]
 #random_state = np.random.RandomState(0)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.2, random_state=42)
 
@@ -67,7 +82,19 @@ for C_valid in C_valids:
             accurate_examples += 1
     
     print("Kernel = %s, C = %s, Hold out accuracy = %s" % (kernel, C_valid, 1.0 * accurate_examples / len(y_predicted)))
+    # get support vectors
+    print(clf.support_vectors_)
+    # Indices of the support vectors
+    print(clf.support_[0]) # y = -1
+    print("Support vector for class %s" % (y_train[clf.support_[0]]))
+    for i in range(len(clf.support_)):
+        if y_train[clf.support_[i]] == 1:
+            mnist_digit_show(X_train[clf.support_[i]])
+        if i > 1000:
+            break
+    #print("Support vector for class %s" % (y_train[clf.support_[2]]))
+    #mnist_digit_show(X_train[clf.support_[0]])
+    #TODO: name support vectors
 
 
-# get support vectors
-#print(clf.support_vectors_)
+

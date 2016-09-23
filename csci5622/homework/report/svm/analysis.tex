@@ -22,11 +22,11 @@
 \date{\vspace{-2ex}}
 \maketitle
 
-The ratio of train size to test size is $8:2$. 
-In general, the larger the C is, the smaller the margin becomes.
-For the RBF kernel, the larger the C becomes, the better the held accuracy becomes.
-The RBF kernel has more expressive power than the linear kernel so if the RBF kernel accpets misclassification examples, it tends to overfit. Therefore, the smaller the margin is, the better the classification accuracy becomes.
-For the linear kernel, the larger the C becomes, the held accuracy becomes slightly worse. This shows that the decision boundary does not differ much by how large the margin is.
+The ratio of the training data size to the test data size is $8:2$. 
+In general, the larger the $C$ is, the smaller the margin becomes.
+According to Figure \ref{linear_kernel}, the larger the $C$ becomes, the better the held accuracy becomes for the RBF kernel.
+This is because the RBF kernel has more expressive power than the linear kernel so the smaller margin helps the RBF kernel overfitting to the training data. Therefore, the smaller the margin is, the better the classification accuracy becomes.
+For the linear kernel, the larger the $C$ becomes, the held accuracy becomes slightly worse as shown in Figure \ref{rbf_kernel}. This shows that the decision boundary does not differ much by how large the margin is for the linear kernel.
 
 \begin{figure}[htb]
   %\vspace{-1.1cm}
@@ -39,7 +39,7 @@ For the linear kernel, the larger the C becomes, the held accuracy becomes sligh
      \scalebox{0.33}
       {\includegraphics[]{figure_4_C.png}}
    
-      \caption{\label{stopping_criterion}Different C values for SVM with the linear kernel.}
+      \caption{\label{linear_kernel}Different C values for SVM with the linear kernel.}
       \label{fig:learning_rate}
      \end{center}
     \end{minipage}
@@ -51,7 +51,7 @@ For the linear kernel, the larger the C becomes, the held accuracy becomes sligh
      \begin{center}
       \scalebox{0.33}
       {\includegraphics[]{figure_3_C.png}}
-      \caption{\label{stopping_criterion}Different C values for SVM with the RBF kernel.}
+      \caption{\label{rbf_kernel}Different C values for SVM with the RBF kernel.}
      \end{center}
     \end{minipage}
 
@@ -95,7 +95,7 @@ For the linear kernel, the larger the C becomes, the held accuracy becomes sligh
 \vspace{-0.5cm}
 \end{figure}
 
-The support vectors do catch difficult examples like $3$ does lack the bottomo stroke. The $8$ support vector have only two very narrow circles which makes the structure close to $3$.
+The support vectors do catch difficult examples like $3$ does lack the bottom stroke. The $8$ support vector have only two very narrow circles which makes the structure close to $3$.
 
 
 \end{document}

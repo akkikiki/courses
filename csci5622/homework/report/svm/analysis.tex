@@ -22,9 +22,9 @@
 \date{\vspace{-2ex}}
 \maketitle
 
-The ratio of the training data size to the test data size is $8:2$. 
+For the rest of the analysis, the ratio of the training data size to the test data size of the SVM model is $8:2$. 
 In general, the larger the $C$ is, the smaller the margin becomes.
-According to Figure \ref{linear_kernel}, the larger the $C$ becomes, the better the held accuracy becomes for the RBF kernel.
+According to Figure \ref{linear_kernel}, the larger the $C$ becomes, the better the held out accuracy becomes for the RBF kernel.
 This is because the RBF kernel has more expressive power than the linear kernel so the smaller margin helps the RBF kernel overfitting to the training data. Therefore, the smaller the margin is, the better the classification accuracy becomes.
 For the linear kernel, the larger the $C$ becomes, the held accuracy becomes slightly worse as shown in Figure \ref{rbf_kernel}. This shows that the decision boundary does not differ much by how large the margin is for the linear kernel.
 
@@ -75,7 +75,7 @@ For the linear kernel, the larger the $C$ becomes, the held accuracy becomes sli
       {\includegraphics[]{figure_1.png}}
    
       \caption{The support vector for class $3$. }
-      \label{fig:learning_rate}
+      \label{fig:support_vector_1}
      \end{center}
     \end{minipage}
 
@@ -86,7 +86,7 @@ For the linear kernel, the larger the $C$ becomes, the held accuracy becomes sli
      \begin{center}
       \scalebox{0.33}
       {\includegraphics[]{figure_2.png}}
-      \caption{\label{stopping_criterion}The support vector for class $8$.}
+      \caption{\label{fig:support_vector_2}The support vector for class $8$.}
      \end{center}
     \end{minipage}
 
@@ -95,7 +95,7 @@ For the linear kernel, the larger the $C$ becomes, the held accuracy becomes sli
 \vspace{-0.5cm}
 \end{figure}
 
-The support vectors do catch difficult examples like $3$ does lack the bottom stroke. The $8$ support vector have only two very narrow circles which makes the structure close to $3$.
+Examples of the support vectors from the linear kernel are shown in Figure \ref{fig:support_vector_1} and Figure \ref{fig:support_vector_2}. The support vectors do catch difficult examples. In Figure \ref{fig:support_vector_1}, the support vector for $3$ does lack the bottom stroke. The support vector for the label $8$ in Figure \ref{fig:support_vector_2} have only two very narrow circles which makes the structure close to $3$.
 
 
 \end{document}

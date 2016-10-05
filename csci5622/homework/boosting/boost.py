@@ -80,10 +80,16 @@ class AdaBoost:
         # Hint: You can create and train a new instantiation 
         # of your sklearn weak learner as follows 
 
+        # http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson09/lesson09.pdf
         w = np.ones(len(y_train))
-        h = clone(self.base)
+        h = clone(self.base) # weak learner, decision tree classifier
         h.fit(X_train, y_train, sample_weight=w)
-            
+        for k in range(self.n_learners):
+            print(k)
+
+        err = sum(w)
+        self.alpha[0] = 1
+        self.learners.append(h)
             
     def predict(self, X):
         """
@@ -97,8 +103,9 @@ class AdaBoost:
         """
 
         # TODO 
+        print(self.learners[0].predict(X))
 
-        return np.zeros(X.shape[0])
+        return self.learners[0].predict(X)
     
     def score(self, X, y):
         """
@@ -111,10 +118,11 @@ class AdaBoost:
         Returns: 
             Prediction accuracy (between 0.0 and 1.0).
         """
+        self.learners[0].score(X, y)
 
         # TODO 
 
-        return 0.0
+        return self.learners[0].score(X, y)
     
     def staged_score(self, X, y):
         """

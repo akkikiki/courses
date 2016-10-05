@@ -81,23 +81,29 @@ class AdaBoost:
         # of your sklearn weak learner as follows 
 
         # http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson09/lesson09.pdf
-        w = np.ones(len(y_train))
-        h = clone(self.base) # weak learner, decision tree classifier
-        h.fit(X_train, y_train, sample_weight=w)
+        w = np.array([1/float(len(y_train))] * len(y_train))
+ 
         for k in range(self.n_learners):
-            #print(k)
+            h = clone(self.base) # weak learner, decision tree classifier
+            h.fit(X_train, y_train, sample_weight=w)
+            self.learners.append(h)
             predictions = h.predict(X_train)
             corrects = 0
             
             for i in range(len(y_train)):
                 corrects += w[i] * (y_train[i] != predictions[i])
 
-            error = corrects/float(sum(w))
-                #print(i)
+            err = corrects/float(sum(w))
+            alpha = 0.5 * np.log((1 - err) / err)
+            self.alpha[k] = alpha
 
-        err = sum(w)
-        self.alpha[0] = 1
-        self.learners.append(h)
+            # Updating the weights
+            w_new = np.ones(len(y_train))
+            for l in range(len(y_train)):
+                w_new[l] = w[l] * np.exp(-1 * alpha * y_train[l] * predictions[l])
+            sum_w_new = sum(w_new)
+            for l in range(len(y_train)):
+                w[l] = w_new[l]/sum_w_new
             
     def predict(self, X):
         """
@@ -111,9 +117,11 @@ class AdaBoost:
         """
 
         # TODO 
-        print(self.learners[0].predict(X))
+        predictions = np.zeros(len(X))
+        for i, learner in enumerate(self.learners):
+            predictions += self.alpha[i] * learner.predict(X)
 
-        return self.learners[0].predict(X)
+        return np.sign(predictions)
     
     def score(self, X, y):
         """
@@ -126,11 +134,12 @@ class AdaBoost:
         Returns: 
             Prediction accuracy (between 0.0 and 1.0).
         """
-        self.learners[0].score(X, y)
 
         # TODO 
+        y_predicted = self.predict(X)
+        correct = [y[i] == y_predicted[i] for i in range(len(y))]
 
-        return self.learners[0].score(X, y)
+        return sum(correct)/float(len(correct))
     
     def staged_score(self, X, y):
         """
@@ -147,8 +156,18 @@ class AdaBoost:
         """
 
         # TODO 
+        score = np.zeros(self.n_learners)
 
-        return  np.zeros(self.n_learners)
+        for k in range(self.n_learners):
+            predictions = np.zeros(len(X))
+            for i in range(k+1):
+                predictions += self.alpha[i] * self.learners[i].predict(X)
+ 
+            y_predicted = np.sign(predictions)
+            correct = [y[i] == y_predicted[i] for i in range(len(y))]
+            score[k] = sum(correct)/float(len(correct))
+
+        return score
 
 
 def mnist_digit_show(flatimage, outname=None):

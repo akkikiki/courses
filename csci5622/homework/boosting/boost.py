@@ -85,7 +85,15 @@ class AdaBoost:
         h = clone(self.base) # weak learner, decision tree classifier
         h.fit(X_train, y_train, sample_weight=w)
         for k in range(self.n_learners):
-            print(k)
+            #print(k)
+            predictions = h.predict(X_train)
+            corrects = 0
+            
+            for i in range(len(y_train)):
+                corrects += w[i] * (y_train[i] != predictions[i])
+
+            error = corrects/float(sum(w))
+                #print(i)
 
         err = sum(w)
         self.alpha[0] = 1

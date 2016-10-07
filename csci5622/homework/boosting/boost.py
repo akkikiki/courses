@@ -191,13 +191,19 @@ if __name__ == "__main__":
                         help="Restrict training to this many examples")
 	parser.add_argument('--n_learners', type=int, default=50,
                         help="Number of weak learners to use in boosting")
+	parser.add_argument('--max_depth', type=int, default=1,
+                        help="The maximum depth of a tree to use in boosting")
 	args = parser.parse_args()
 
 	data = FoursAndNines("../data/mnist.pkl.gz")
 
     # An example of how your classifier might be called 
-	clf = AdaBoost(n_learners=50, base=DecisionTreeClassifier(max_depth=1, criterion="entropy"))
+	#clf = AdaBoost(n_learners=50, base=DecisionTreeClassifier(max_depth=1, criterion="entropy"))
+	clf = AdaBoost(args.n_learners, base=DecisionTreeClassifier(max_depth=args.max_depth, criterion="entropy"))
 	clf.fit(data.x_train, data.y_train)
+        staged_score = clf.staged_score(data.x_train, data.y_train)
 
-
-
+        f_out = open("learners_%s_max_depth_%s" % (str(args.n_learners), str(args.max_depth)), "w")
+        print(staged_score)
+        for accuracy in staged_score:
+            f_out.write(accuracy)

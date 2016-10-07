@@ -197,13 +197,16 @@ if __name__ == "__main__":
 
 	data = FoursAndNines("../data/mnist.pkl.gz")
 
-    # An example of how your classifier might be called 
+    # An example of how your classifier might be called
 	#clf = AdaBoost(n_learners=50, base=DecisionTreeClassifier(max_depth=1, criterion="entropy"))
 	clf = AdaBoost(args.n_learners, base=DecisionTreeClassifier(max_depth=args.max_depth, criterion="entropy"))
-	clf.fit(data.x_train, data.y_train)
-        staged_score = clf.staged_score(data.x_train, data.y_train)
-
-        f_out = open("learners_%s_max_depth_%s" % (str(args.n_learners), str(args.max_depth)), "w")
-        print(staged_score)
-        for accuracy in staged_score:
-            f_out.write(accuracy)
+        clf.fit(data.x_train, data.y_train)
+        staged_score_training = clf.staged_score(data.x_train, data.y_train)
+        staged_score_testing = clf.staged_score(data.x_test, data.y_test)
+        f_out_train = open("learners_%s_max_depth_%s_training" % (str(args.n_learners), str(args.max_depth)), "w")
+        f_out_test = open("learners_%s_max_depth_%s_testing" % (str(args.n_learners), str(args.max_depth)), "w")
+        print(staged_score_training)
+        for accuracy in staged_score_training:
+            f_out_train.write(str(accuracy) + "\n")
+        for accuracy in staged_score_testing:
+            f_out_test.write(str(accuracy) + "\n")

@@ -193,18 +193,23 @@ if __name__ == "__main__":
                         help="Number of weak learners to use in boosting")
 	parser.add_argument('--max_depth', type=int, default=1,
                         help="The maximum depth of a tree to use in boosting")
+	parser.add_argument('--base_learner', type=str, default="DecisionTreeClassifier",
+                        help="The maximum depth of a tree to use in boosting")
 	args = parser.parse_args()
 
 	data = FoursAndNines("../data/mnist.pkl.gz")
 
     # An example of how your classifier might be called
 	#clf = AdaBoost(n_learners=50, base=DecisionTreeClassifier(max_depth=1, criterion="entropy"))
-	clf = AdaBoost(args.n_learners, base=DecisionTreeClassifier(max_depth=args.max_depth, criterion="entropy"))
+        if args.base_learner == "Perceptron":
+	    clf = AdaBoost(args.n_learners, base=Perceptron())
+        else:
+	    clf = AdaBoost(args.n_learners, base=DecisionTreeClassifier(max_depth=args.max_depth, criterion="entropy"))
         clf.fit(data.x_train, data.y_train)
         staged_score_training = clf.staged_score(data.x_train, data.y_train)
         staged_score_testing = clf.staged_score(data.x_test, data.y_test)
-        f_out_train = open("learners_%s_max_depth_%s_training" % (str(args.n_learners), str(args.max_depth)), "w")
-        f_out_test = open("learners_%s_max_depth_%s_testing" % (str(args.n_learners), str(args.max_depth)), "w")
+        f_out_train = open("%s_learners_%s_max_depth_%s_training" % (args.base_learner, str(args.n_learners), str(args.max_depth)), "w")
+        f_out_test = open("%s_learners_%s_max_depth_%s_testing" % (args.base_learner, str(args.n_learners), str(args.max_depth)), "w")
         print(staged_score_training)
         for accuracy in staged_score_training:
             f_out_train.write(str(accuracy) + "\n")

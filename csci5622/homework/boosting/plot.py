@@ -43,9 +43,13 @@ def plot_learning_curve(title):
     accuracy_training = []
     accuracy_testing = []
 
-    for line in open("learners_500_max_depth_1_training"):
+    #for line in open("learners_500_max_depth_1_training"):
+    #for line in open("learners_500_max_depth_2_training"):
+    for line in open("learners_500_max_depth_3_training"):
         accuracy_training.append(float(line[:-1]))
-    for line in open("learners_500_max_depth_1_testing"):
+    #for line in open("learners_500_max_depth_1_testing"):
+    #for line in open("learners_500_max_depth_2_testing"):
+    for line in open("learners_500_max_depth_3_testing"):
         accuracy_testing.append(float(line[:-1]))
  
     print len(accuracy_training)

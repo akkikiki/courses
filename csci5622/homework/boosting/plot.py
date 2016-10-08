@@ -53,8 +53,8 @@ def plot_learning_curve(title):
     assert len(accuracy_training) == len(train_sizes)
     plt.xlim((0, len(accuracy_training) + 1))
     plt.grid()
-    plt.plot(train_sizes, accuracy_training, 'o-', color="r", label="Accuracy")
-    plt.plot(train_sizes, accuracy_testing, '*-', color="b", label="Accuracy")
+    plt.plot(train_sizes, accuracy_training, 'o-', color="r", label="Train Accuracy")
+    plt.plot(train_sizes, accuracy_testing, '*-', color="b", label="Test Accuracy")
 
     plt.legend(loc="best")
     #plt.legend(loc=4)

@@ -157,11 +157,12 @@ class AdaBoost:
 
         # TODO 
         score = np.zeros(self.n_learners)
+        predictions = np.zeros(len(X))
 
         for k in range(self.n_learners):
-            predictions = np.zeros(len(X))
-            for i in range(k+1):
-                predictions += self.alpha[i] * self.learners[i].predict(X)
+            #predictions = np.zeros(len(X))
+            #for i in range(k+1):
+            predictions += self.alpha[k] * self.learners[k].predict(X)
  
             y_predicted = np.sign(predictions)
             correct = [y[i] == y_predicted[i] for i in range(len(y))]

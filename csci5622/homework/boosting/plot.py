@@ -44,10 +44,10 @@ def plot_learning_curve(title):
     accuracy_testing = []
 
     #for line in open("DecisionTreeClassifier_learners_700_max_depth_3_training"):
-    for line in open("Perceptron_learners_700_max_depth_2_training"):
+    for line in open("Perceptron_learners_700_max_depth_1_training"):
         accuracy_training.append(float(line[:-1]))
     #for line in open("DecisionTreeClassifier_learners_700_max_depth_3_testing"):
-    for line in open("Perceptron_learners_700_max_depth_2_testing"):
+    for line in open("Perceptron_learners_700_max_depth_1_testing"):
         accuracy_testing.append(float(line[:-1]))
  
     print len(accuracy_training)

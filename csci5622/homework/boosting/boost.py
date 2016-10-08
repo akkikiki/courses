@@ -196,6 +196,9 @@ if __name__ == "__main__":
                         help="The maximum depth of a tree to use in boosting")
 	parser.add_argument('--base_learner', type=str, default="DecisionTreeClassifier",
                         help="The maximum depth of a tree to use in boosting")
+	parser.add_argument('--n_iter_perceptron', type=int, default=5,
+                        help="The number of iterations for Perceptron")
+	
 	args = parser.parse_args()
 
 	data = FoursAndNines("../data/mnist.pkl.gz")
@@ -203,7 +206,8 @@ if __name__ == "__main__":
     # An example of how your classifier might be called
 	#clf = AdaBoost(n_learners=50, base=DecisionTreeClassifier(max_depth=1, criterion="entropy"))
         if args.base_learner == "Perceptron":
-	    clf = AdaBoost(args.n_learners, base=Perceptron())
+	    clf = AdaBoost(args.n_learners, base=Perceptron(n_iter=args.n_iter_perceptron))
+            args.max_depth = args.n_iter_perceptron
         else:
 	    clf = AdaBoost(args.n_learners, base=DecisionTreeClassifier(max_depth=args.max_depth, criterion="entropy"))
         clf.fit(data.x_train, data.y_train)

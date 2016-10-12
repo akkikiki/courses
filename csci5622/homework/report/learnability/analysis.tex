@@ -1,0 +1,67 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{color}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage{url}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+
+\begin{document}
+\title{Analysis Report on Assignment 5: PAC Learnability}
+\author{Yoshinari Fujinuma}
+\date{}
+\maketitle
+
+\section{Problem 1}
+% http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson12/lesson12.pdf
+``any consistent learner using $H=C$ will, with probability $95\%$, output a hypothesis with error at most $0.15$''
+
+error $\epsilon = 0.15$
+
+confidence $\delta = 0.05$
+
+What is the number of sufficient training data size $m$?
+
+Since class $C$ is finite, the hypothesis $H$ is also finite.
+
+The number of hypothesis $|H|$ is any combinations of three different points:
+$$
+|H| = \dbinom{N}{3} = 161700
+$$
+where $N$ is the number of points in $[0, 99]$. So $N = 100$.
+
+According to Lecture 12\footnote{http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson12/lesson12.pdf}, the concept $c$ is PAC learnable with 
+$$
+m \geq \frac{1}{\epsilon}(\log |H| + \log(\frac{1}{\delta}))
+$$
+By plugging in $\epsilon = 0.15$ and $\delta = 0.05$, 
+$$
+m \geq \frac{1}{0.15}(\log(161700) + \log(\frac{1}{0.05})) \approx 99.928
+$$
+So the bound or the minimum number of training examples necessary is $m = \ceil{99.928} = 100$.
+
+
+\section{Problem 2}
+``State and prove the VC Dimension of the hypothesis class H of linear hyperplanes in 2D that pass through the origin.''
+
+According to Lecture 13\footnote{http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson13/lesson13.pdf}, the VC dimension is defined as the following:
+$$
+\mbox{VCdim}(H) = max{|S|: H \mbox{ shatters } S \mbox{ for some } S}
+$$
+
+Decision boundary: $ +1 : \mbox{ if }y' > y = a * x'$
+
+\subsection{Proof of the lower bound}
+
+For a given $2$ points in 2D, we can shatter in similar way to slides 22 through 25.
+
+\subsection{Proof of the upper bound}
+
+\end{document}
+

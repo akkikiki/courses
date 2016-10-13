@@ -42,11 +42,11 @@ where $N$ is the number of points in $[0, 99]$. So $N = 100$.
 
 According to Lecture 12\footnote{http://grandmaster.colorado.edu/~cketelsen/files/csci5622/videos/lesson12/lesson12.pdf}, the concept $c$ is PAC learnable with 
 $$
-m \geq \frac{1}{\epsilon}(\log |H| + \log(\frac{1}{\delta}))
+m \geq \frac{1}{\epsilon}(\ln |H| + \ln(\frac{1}{\delta}))
 $$
 By plugging in $\epsilon = 0.15$ and $\delta = 0.05$, 
 $$
-m \geq \frac{1}{0.15}(\log(161700) + \log(\frac{1}{0.05})) \approx 99.928
+m \geq \frac{1}{0.15}(\ln(161700) + \ln(\frac{1}{0.05})) \approx 99.928
 $$
 So the bound or the minimum number of training examples necessary is $m = \ceil{99.928} = 100$.
 

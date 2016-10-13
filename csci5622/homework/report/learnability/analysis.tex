@@ -3,6 +3,7 @@
 \usepackage{color}
 \usepackage[dvipdfmx]{graphicx}
 \usepackage{amsbsy}
+\usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{adjustbox}
 \usepackage{url}
@@ -11,6 +12,9 @@
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 \newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+\newenvironment{claim}[1]{\par\noindent\underline{Claim:}\space#1}{}
+\newenvironment{claimproof}[1]{\par\noindent\underline{Proof:}\space#1}{\hfill $\blacksquare$}
+
 
 \begin{document}
 \title{Analysis Report on Assignment 5: PAC Learnability}
@@ -55,13 +59,77 @@ $$
 \mbox{VCdim}(H) = max{|S|: H \mbox{ shatters } S \mbox{ for some } S}
 $$
 
-Decision boundary: $ +1 : \mbox{ if }y' > y = a * x'$
+Decision boundary: 
+$$ 
+h(x, y) = \begin{cases} 
+          +1 \mbox{ if } ax - y \geq 0 \mbox{ (i.e. above the line) }\\
+          -1 \mbox{ if } ax - y < 0 \mbox{ (i.e. below the line) }\\
+\end{cases}
+$$
+
+
+E.g., For a point ()
 
 \subsection{Proof of the lower bound}
 
 For a given $2$ points in 2D, we can shatter in similar way to slides 22 through 25.
 
+\begin{figure}[htb]
+  \begin{center}
+   \begin{tabular}{c}
+    \begin{minipage}{0.5\hsize}
+     \begin{center}
+     \scalebox{0.33}
+      {\includegraphics[]{figure_1.png}}
+   
+      \caption{$a = 4/5$. }
+      \label{fig:corpus_size}
+     \end{center}
+    \end{minipage}
+
+    \begin{minipage}{0.01\hsize}
+    \end{minipage}
+
+%    \begin{minipage}{0.5\hsize}
+%     \begin{center}
+%      \scalebox{0.33}
+%      {\includegraphics[]{figure_2.png}}
+%      \caption{\label{k_and_accuracy}The relationship between $k$ and accuracy. The value of the number of training examples is fixed to $500$}
+%     \end{center}
+%    \end{minipage}
+
+  \end{tabular}
+ \end{center}
+\end{figure}
+
+So $\mbox{VCdim}(H) \geq 2$.
+
 \subsection{Proof of the upper bound}
+
+\begin{claim}
+$$\mbox{VCdim}(H) < 3.$$
+\end{claim}
+
+\begin{claimproof}
+We will prove by contradiction.
+
+Let given three points $(x_1, y_1)$, $(x_2, y_2)$, $(x_3, y_3)$ have labels ${l_1 = +1, l_2 = -1, l_3 = +1}$ respectively.
+
+Assume $0 \leq x_1 < x_2 < x_3$ and $y_1 > y_2 > y_3 \geq 0$.
+
+Since $l_1 = +1$, $ax_1 - y_1 \leq 0$
+
+Since $l_3 = +1$, $ax_3 - y_3 \leq 0$
+
+From the assumption, and assuming $a > 0$ (i.e. only considering the first quadrant), $$ax_1 < ax_2 < ax_3$$. 
+
+Since $y_1, y_2, y_3 \geq 0$, $$ax_1 - y_1 < ax_2 - y_1 < ax_3 - y_1$$.
+
+Since $y_1 > y_2 > y_3 \geq 0$, $$ax_1 - y_1 < ax_2 - y_2 < ax_3 - y_3 \leq 0$$.
+
+Therefore,$$ax_2 - y_2 \leq 0.$$
+However, this contradicts to the assumption that $l_2 = -1$, i.e. $ax_2 - y_2 > 0$.
+\end{claimproof}
 
 \end{document}
 

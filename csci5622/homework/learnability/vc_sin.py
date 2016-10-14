@@ -65,21 +65,17 @@ def train_sin_classifier(data):
     w = 1.0 * pi
     K = 10000
     classifier = SinClassifier(w)
-    print(classifier.w)
     for i in range(K):
         all_correct = True
         for j, datum in enumerate(data):
-            print("Iteration %s: %s" % (i, datum[1] == classifier.classify(datum[0])))
             if classifier.classify(datum[0]) != datum[1]:
-                print("updating weights")
                 if datum[1]:
-                    # True, sin(pi3/2)
+                    # True, sin(pi3/2) 
                     classifier.w *= 5/2.0# Making the curve thinner, and progress to make the example to +1
                 else:
                     # True, sin(pi1/2)
                     #classifier.w += (2 ** datum[0]) * 1/2.0# Making the curve thinner
-                    classifier.w *= 3/2.0# Making the curve thinner
-                print(classifier.w)
+                    classifier.w *= 3/2.0# Making the curve thinner, and progress to make the example to -1
                 all_correct = False
                 break
         # move 2pi if no match.

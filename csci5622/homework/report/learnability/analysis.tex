@@ -71,6 +71,7 @@ $$
 E.g., For a point ()
 
 \subsection{Proof of the lower bound}
+\label{lowerbound}
 
 For a given $2$ points in 2D, we can shatter in similar way to slides 22 through 25.
 
@@ -105,6 +106,7 @@ For a given $2$ points in 2D, we can shatter in similar way to slides 22 through
 So $\mbox{VCdim}(H) \geq 2$.
 
 \subsection{Proof of the upper bound}
+\label{upperbound}
 
 \begin{claim}
 $$\mbox{VCdim}(H) < 3.$$
@@ -131,6 +133,8 @@ Therefore,$$ax_2 - y_2 \leq 0.$$
 However, this contradicts to the assumption that $l_2 = -1$, i.e. $ax_2 - y_2 > 0$.
 \end{claimproof}
 
+From the result of Section \ref{lowerbound} and Section \ref{upperbound}, the VCdim is $2$.
+
 
 \section{Problem 3}
 Solution technique
@@ -145,6 +149,8 @@ $$
 $$
 -1 \mbox{while } sign(\sin(4\pi)) \leq x \leq sign(\sin(4\pi + pi))
 $$
+
+Since I am multiplying, and the wave length of $\sin(w2^{-k})$ gets thinner as $w$ gets bigger, we have to make sure that $w$ is monotonically increasing.
 
 \end{document}
 

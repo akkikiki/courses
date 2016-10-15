@@ -63,25 +63,23 @@ def train_sin_classifier(data):
     # TODO: Compute a parameter w that will correctly classify the dataset
 
     w = 1.0 * pi
-    K = 10000
+    K = 10000 # Some number that is large enough for the weights to converge
     classifier = SinClassifier(w)
     for i in range(K):
         all_correct = True
         for j, datum in enumerate(data):
             if classifier.classify(datum[0]) != datum[1]:
                 if datum[1]:
-                    # True, sin(pi3/2) 
+                    # True, sin(pi5/2) = 1
                     classifier.w *= 5/2.0# Making the curve thinner, and progress to make the example to +1
                 else:
-                    # True, sin(pi1/2)
-                    #classifier.w += (2 ** datum[0]) * 1/2.0# Making the curve thinner
+                    # False, sin(pi3/2) = -1
                     classifier.w *= 3/2.0# Making the curve thinner, and progress to make the example to -1
                 all_correct = False
                 break
-        # move 2pi if no match.
-        # if match, move slowly
 
         if all_correct:
+            # All the training examples are now correctly classified.
             break
         
     return classifier

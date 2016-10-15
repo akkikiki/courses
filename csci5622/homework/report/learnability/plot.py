@@ -5,10 +5,29 @@ import matplotlib.pyplot as plt
 #if ylim is not None:
 #    plt.ylim(*ylim)
 a = np.arange(20)
-plt.plot([1,2], [1,4], 'ro', ms=12)
-plt.plot([4], [3], 'bo', ms=12)
-#plt.plot(a, 3.0/2*a)
-plt.plot(a, 4.0/5*a)
+## Pattern 1
+#plt.plot([2], [4], 'ro', ms=12)
+#plt.plot([3], [3], 'bo', ms=12)
+#plt.plot(a, 4.0/5*a)
+
+
+## Pattern 2
+plt.plot([2], [4], 'bo', ms=12)
+plt.plot([3], [3], 'ro', ms=12)
+plt.plot(a, 5.0/2*a)
+
+## Pattern 3
+#plt.plot([2], [4], 'ro', ms=12)
+#plt.plot([3], [3], 'ro', ms=12)
+#plt.plot(a, 5.0/1*a)
+
+## Pattern 4
+#plt.plot([2], [4], 'bo', ms=12)
+#plt.plot([3], [3], 'bo', ms=12)
+#plt.plot(a, 4.0/3*a)
+
+
+
 plt.axis([0, 5, 0, 5])
 plt.grid(b=True, which='major', color='black', linestyle='-')
 plt.show()

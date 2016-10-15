@@ -52,7 +52,7 @@ $$
 
 The distance $d$ of a point $(x_i, y_i)$ from a line $y = ax$ is
 $$
-d = \frac{|ax_i - y_i|}{\sqrt{a^2 + 1}}.
+d_i = \frac{|ax_i - y_i|}{\sqrt{a^2 + 1}}.
 $$
 
 The decision boundary given a line $y = ax$ is
@@ -60,7 +60,7 @@ $$
 h(x_i, y_i) = \begin{cases} 
 %          +1 \mbox{ if } 0 \geq ax - y \geq 1 \mbox{ (i.e. above the line) }\\
 %          -1 \mbox{ else } ax - y < 0 \mbox{ (i.e. below the line) }\\
-          +1 \mbox{ if } 0 \leq d = \frac{|ax_i - y_i|}{\sqrt{a^2 + 1}} \leq 1 \mbox{ (i.e. The distance of a point $(x_i, y_i)$ from the line $y = ax$ is $\leq 1$) }\\
+          +1 \mbox{ if } 0 \leq \frac{|ax_i - y_i|}{\sqrt{a^2 + 1}} \leq 1 \mbox{ (i.e. The distance $d_i$ of a point $(x_i, y_i)$ from the line $y = ax$ is $\leq 1$) }\\
           -1 \mbox{ else }\\
 \end{cases}
 $$
@@ -146,7 +146,7 @@ Similarly, since $l_3 = +1$, $\frac{|ax_3 - y_3|}{\sqrt{a^2 + 1}} < 1$.
 
 From the assumption that $0 \leq x_1 < x_2 < x_3$, and assuming $a > 0$ (i.e. only considering the first quadrant), $$ax_1 < ax_2 < ax_3.$$ 
 
-Since $y_1, y_2, y_3 \geq 0$, $$ax_1 - y_1 < ax_2 - y_1 < ax_3 - y_1.$$
+Since $y_1 \geq 0$, $$ax_1 - y_1 < ax_2 - y_1 < ax_3 - y_1.$$
 
 Since $y_1 > y_2 > y_3 \geq 0$ and $-\sqrt{a^2 + 1} \leq ax_i - y_i \leq \sqrt{a^2 + 1}$, 
 $$ -\sqrt{a^2 + 1} \leq ax_1 - y_1 < ax_2 - y_2 < ax_3 - y_3 \leq \sqrt{a^2 + 1}.$$
@@ -192,9 +192,9 @@ From the result of Section \ref{lowerbound} and Section \ref{upperbound}, the VC
  \end{center}
 \end{figure}
 
-According to \ref{fig:2}, we can see that as $w$ increases, the width of the wave become thinner. Since I am multiplying, and the wave length of $\sin(w2^{-k})$ gets thinner as $w$ gets bigger, we have to make sure that $w$ is monotonically increasing.
+According to \ref{fig:2}, we can see that as $w$ increases, the width of the wave become thinner. Since the wave length of $\sin(w2^{-k})$ gets thinner as $w$ gets bigger, we have to make sure that $w$ is monotonically increasing. I am updating the weight $w$ by multiplying, so I restricted the learning rate to be $> 1$.
 
-My strategy was to update the weights in different way according to the misclassification pattern. If the example is misclassified as ``-1'', then $w = w * \frac{5\pi}{2}$. Else, $w = w * \frac{3\pi}{2}$. The values are adjusted to classify the first training data in the first iteration, but in practice, even if the updating values are swapped, it still converges. 
+Now, my strategy is to update the weights in different way according to the misclassification pattern. If the example is misclassified as ``-1'', then $w = w * \frac{5\pi}{2}$. Else, $w = w * \frac{3\pi}{2}$. The values are adjusted to classify the first training data in the first iteration, but in practice, even if the updating values are swapped, it still converges. 
 
 %$$
 %\mbox{one cycle of the wave }= \sin(4\pi)

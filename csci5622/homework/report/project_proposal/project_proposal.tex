@@ -30,12 +30,12 @@ Two problems of Tweet2vec \cite{dhingra-EtAl:2016:P16-2} (i.e. bidirectional GRU
 \begin{enumerate}
  \setlength\itemsep{0.01em}
  \item  Since Twitter users are lazy, many of the relevant hashtags are not added by users. Therefore, hashtag prediction on a hold out set is not a good evaluation.
- \item Tweet2vec is black box and we are not sure whether the model is learning a correct model in any given training data. (Similar to Chirstmas vs. fever problem for flu classifier \cite{Paul-2016} .)
+ \item Tweet2vec is black box and we are not sure whether the model is learning correctly in any given training data. (Similar to Christmas vs. fever problem for flu classifier \cite{Paul-2016} .)
 \end{enumerate}
 
 {\bf Objective of the project}: Solve the problem 2.
 
-Comparing Figure 1 and Figure 2, whether the model is correctly predicting from human-intuitive feature is not apparaent in Figure 2. %effect is not made transparenet.
+Comparing Figure 1 and Figure 2, whether the model is correctly predicting from human-intuitive feature is not apparent in Figure 2. %effect is not made transparenet.
 To solve the problem, we would like to start off from trying recently proposed interpretable methods:
 \begin{enumerate}
  \item Model-agnostic interpretation (e.g., LIME \cite{Ribeiro:2016})
@@ -80,7 +80,8 @@ To solve the problem, we would like to start off from trying recently proposed i
      \scalebox{0.3}
       %{\includegraphics[]{figure_1.png}}
       {\includegraphics[]{pictures/tweet2vec_figure.png}}
-      \caption{The attention figure from the Recurrent Memomry Network paper. }
+
+      \caption{The prediction example from tweet2vec paper \cite{dhingra-EtAl:2016:P16-2}. }
       \label{fig:learning_rate}
      \end{center}
 \vspace{-0.5cm}
@@ -94,13 +95,16 @@ To solve the problem, we would like to start off from trying recently proposed i
       %{\includegraphics[]{figure_1.png}}
       {\includegraphics[]{pictures/RNM_attention_figure.png}}
    
-      \caption{The prediction example from tweet2vec paper \cite{dhingra-EtAl:2016:P16-2}. }
+
+      \caption{The attention figure from the Recurrent Memory Network paper. }
       \label{fig:learning_rate}
      \end{center}
 \vspace{-0.5cm}
 \end{figure}
 
 %\section{Curriculum Learning and Tweet2vec}
+%
+%Learning from users with more tweets helps embedding a whole tweet?
 
 \bibliographystyle{plain}
 \bibliography{project_proposal}

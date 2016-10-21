@@ -1,0 +1,57 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{color}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage{url}
+%\usepackage{floatrow}
+\usepackage[font=small,labelfont=bf,tableposition=top]{caption}
+\DeclareCaptionLabelFormat{tableonly}{\tablename~\thetable}
+%\newfloatcommand{capbtabbox}{table}[][\FBwidth]
+
+
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+
+\begin{document}
+\vspace{-1cm}
+\title{\vspace{-2ex}Project proposal for the ML class final project\vspace{-2ex}}
+\author{Yoshinari Fujinuma\vspace{-2ex}}
+\date{\vspace{-2ex}}
+\maketitle
+
+\vspace{-0.5cm}
+
+\section{Improving Tweet2vec by using subword mebeddings}
+
+Three advantages of subword level (character $n$-grams) embeddings:
+
+\begin{enumerate}
+ \setlength\itemsep{0.01em}
+ \item Robust to noisy inputs like tweets (e.g., emoji, ``cooooollll'')
+ \item Does not require language-specific preprocessing (e.g., word segmentation in Japanese/Chinese)
+ \item Robust on out-of-vocabulary words and rare words.
+\end{enumerate}
+
+Two interesting arXiv papers: 1. FAIR (Mikolov's) paper \cite{bojanowski2016enriching}, and 2. TTIC's paper \cite{WietingBGL16}. 1. is actually open-sourced as fastText\footnote{https://github.com/facebookresearch/fastText}.
+
+{\bf Objective of the project}: Apply character $n$-gram level embeddings to embed tweets.
+
+\begin{figure}[htb]
+  \begin{center}
+     \scalebox{0.6}
+      {\includegraphics[]{pictures/charagram.png}}
+
+      \caption{The examples of capturing negations from the TTIC paper \cite{WietingBGL16}. }
+      \label{fig:learning_rate}
+     \end{center}
+\vspace{-0.5cm}
+\end{figure}
+
+
+
+\bibliographystyle{plain}
+\bibliography{project_proposal_charagram}
+
+\end{document}

@@ -1,0 +1,67 @@
+\documentclass[11pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{color}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{amsbsy}
+\usepackage{amsmath}
+\usepackage{adjustbox}
+\usepackage{url}
+%\usepackage{floatrow}
+\usepackage[font=small,labelfont=bf,tableposition=top]{caption}
+\DeclareCaptionLabelFormat{tableonly}{\tablename~\thetable}
+%\newfloatcommand{capbtabbox}{table}[][\FBwidth]
+
+
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+
+\begin{document}
+\vspace{-1cm}
+\title{\vspace{-2ex}Project proposal for the ML class final project\vspace{-2ex}}
+\author{Yoshinari Fujinuma\vspace{-2ex}}
+\date{\vspace{-2ex}}
+\maketitle
+
+\vspace{-0.5cm}
+
+\section{Improving Tweet2vec by using skip-thought vectors}
+
+One problem of tweets:
+
+\begin{enumerate}
+ \setlength\itemsep{0.01em}
+ \item Tweets are short and a single tweet is usually not enough\footnote{Prof. Leysia Polen also mentioned it during last week's Intro. to CS PhD class}\footnote{Also mentioned in Jordan's hyperlocal EPIC grant: ``a challenge in topic modeling tweets is finding the right unit of analysis: individual tweets are often too small, but whole user streams can sometimes be too big.''}.
+\end{enumerate}
+
+One idea is to use Skip-thought vectors \cite{kiros2015skip} on user-aggregated tweets. The two RNN decoders produce one tweet before and one tweet after the target tweet.
+
+{\bf Objective of the project}: Apply skip-thought vectors on user-aggregated tweets to embed tweets.
+
+\begin{figure}[htb]
+  \begin{center}
+     \scalebox{0.5}
+      {\includegraphics[]{pictures/skipthought.png}}
+
+      \caption{An example of skip-thought vector \cite{kiros2015skip}. }
+      \label{fig:learning_rate}
+     \end{center}
+\vspace{-0.5cm}
+\end{figure}
+
+\begin{figure}[htb]
+  \begin{center}
+     \scalebox{0.5}
+      {\includegraphics[]{pictures/skipthought_results.png}}
+
+      \caption{Example results of skip-thought vector \cite{kiros2015skip}. }
+      \label{fig:learning_rate}
+     \end{center}
+\vspace{-0.5cm}
+\end{figure}
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{project_proposal_skipthought}
+
+\end{document}

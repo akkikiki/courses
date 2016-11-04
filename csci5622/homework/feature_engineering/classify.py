@@ -6,11 +6,16 @@ import numpy as np
 from numpy import array
 from collections import defaultdict
 
+from nltk.tag import StanfordNERTagger
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import SGDClassifier
 import nltk
 ps = nltk.stem.porter.PorterStemmer()
+st = StanfordNERTagger('/Users/Fujinuma/Software/stanford-ner-2014-06-16/classifiers/english.all.3class.distsim.crf.ser.gz',
+                       '/Users/Fujinuma/Software/stanford-ner-2014-06-16/stanford-ner.jar',
+                       encoding='utf-8')
+
 
 """
 How to build a pipeline:
@@ -92,9 +97,8 @@ class Featurizer:
                 print("%s: %s" % (category, " ".join(feature_names[top10])))
 
 
-def extract_feature(X):
+def extract_feature(X, x, stanford_tokens):
     dic_text_field = defaultdict(int)
-    #sentence = x[kTEXT_FIELD].lower()
     movie_title = x[kPAGE_FIELD]
     #if not movie_title.lower() in dic_genres:
     #    print("%s not found" % movie_title.lower())
@@ -130,31 +134,45 @@ def extract_feature(X):
     #sentence = x[kTEXT_FIELD]
     #sentence = re.sub('([0-9]+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen)', '__DIGIT__', sentence)
 
-    words = sentence.split()
+#
+    if args.stanford:
+        tokens = stanford_tokens
+    else:
+        tokenized_sentence = nltk.word_tokenize(sentence)
+        #tokens = st.tag(tokenized_sentence)
+        tagged_sentence = nltk.pos_tag(tokenized_sentence)
+        tokens = nltk.ne_chunk(tagged_sentence)
+        #words = sentence.split()
+
+    #    """
     #for stopword in STOPWORDS:
-    #    # remove stopwords
-    #    """
     #    http://stackoverflow.com/questions/1157106/remove-all-occurrences-of-a-value-from-a-python-list
-    #    for Python 2
     #    """
-    #    #words = filter(lambda word: word != stopword, words)
-    #    """
-    #    for Python 3
-    #    """
-    #    words = list(filter((stopword).__ne__, words))
-    #print(words)
+
     processed_words = []
-    for word in words:
+    for token in tokens:
+        #print(token)
+        word = token[0]
+        """
+        Stanford NER
+        """
+        if args.stanford and token[1] != 'O':
+            word = "__" + token[1] + "__"
+
+        """
+        NLTK ACE-trained NER
+        """
+            
+        if hasattr(token, 'label') and token.label:
+            #word = "__PERSON__"
+            word = "__" + token.label() + "__"
+
+        #else:
+        #    dic_text_field["__POS_" + token[1] + "__"] += 1
+            
+    #for word in words:
         if word.lower() in STOPWORDS:
             # ignore stopwords
-            continue
-
-        if word[0].isupper() and not word[-1].isupper():
-            # avoid Acronyms
-            #dic_text_field["NUM_UPPER_CASE_WORDS"] += 1
-        #    # Likely to be a named entity
-        #    # Do not add as unigrams
-            processed_words.append(word)
             continue
 
         word = re.sub('^(one)$', '1', word.lower())
@@ -173,9 +191,9 @@ def extract_feature(X):
         m = re.match("([0-9]+)x([0-9]+)", word)
         if m:
             print(word, m.group(1), m.group(2))
-            dic_text_field["NUM__season"] += int(m.group(1))
+            #dic_text_field["NUM__season"] += int(m.group(1))
             #dic_text_field["NUM__episode"] = min(int(m.group(2)), 10)
-            dic_text_field["NUM__episode"] += int(m.group(2))
+            #dic_text_field["NUM__episode"] += int(m.group(2))
             dic_text_field["season_digit"] += 1
             dic_text_field["episode_digit"] += 1
             continue
@@ -183,10 +201,12 @@ def extract_feature(X):
             if re.match("^([0-9]+)$", word):
                 word = "DIGIT"
             dic_text_field[word] += 1#.0/len(words)
+
+            #dic_text_field[word + "_GENRE=" + genre] = 1
             dic_text_field["TROPE_" + x[kTROPE_FIELD] + "_" + word] = 1
 
-        dic_text_field["TROPE_" + x[kTROPE_FIELD]] = 1
         #dic_text_field["TROPE_" + x[kTROPE_FIELD]] = 1
+
 
         #dic_text_field["TROPE_" + x[kTROPE_FIELD] + "_" + word] = 1
         #if x[kTROPE_FIELD] in TROPE_LIST:
@@ -198,7 +218,6 @@ def extract_feature(X):
     for bigram in zip(processed_words, processed_words[1:]):
         if bigram[0].lower() in STOPWORDS:
             continue
-        #dic_text_field["_".join(bigram).lower()] += 1
         #dic_text_field["_".join(bigram).lower()] += 1
 
         #if bigram[0].lower() in ["season", "episode", "seri", "day"] and re.match("^([0-9]+)$", bigram[1]):
@@ -227,6 +246,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='classifier options')
     parser.add_argument('--limit', type=int, default=-1,
                         help="Restrict training to this many examples")
+    parser.add_argument('--stanford', action='store_true', default=False, required=False,
+                        help="Use Stanford NER as the NE tagger.")
     args = parser.parse_args()
 
     # Cast to list to keep it all in memory
@@ -251,18 +272,52 @@ if __name__ == "__main__":
 
     print("Label set: %s" % str(labels))
 
+    stanford_tokens_train = []
+    stanford_tokens_test = []
+    stanford_tokens_val = []
+    # Preprocessing using Stanford NER
+    if args.stanford:
+        train_sentences = [x[kTEXT_FIELD] for x in train]
+        tokenized_sentences = [nltk.word_tokenize(sent) for sent in train_sentences]
+        stanford_tokens_train = st.tag_sents(tokenized_sentences)
+        #print(stanford_tokens_train)
+        test_sentences = [x[kTEXT_FIELD] for x in test]
+        tokenized_sentences = [nltk.word_tokenize(sent) for sent in test_sentences]
+        stanford_tokens_test = st.tag_sents(tokenized_sentences)
+        #print(stanford_tokens_test)
+        val_sentences = [x[kTEXT_FIELD] for x in val]
+        tokenized_sentences = [nltk.word_tokenize(sent) for sent in val_sentences]
+        stanford_tokens_val = st.tag_sents(tokenized_sentences)
+        #print(stanford_tokens_val)
+
+
     X_train = []
     X_test = []
     X_val = []
-    for x in train:
-        extract_feature(X_train)
-    for x in test:
-        extract_feature(X_test)
+    if args.stanford:
+        for x, stanford_token in zip(train, stanford_tokens_train):
+            extract_feature(X_train, x, stanford_token)
+            #print(X_train)
+        #for x in test:
+        for x, stanford_token in zip(test, stanford_tokens_test):
+            extract_feature(X_test, x, stanford_token)
+
+        if val:
+            for x, stanford_token in zip(val, stanford_tokens_val):
+                extract_feature(X_val, x, stanford_token)
+    else:
+        for x in train:
+            extract_feature(X_train, x, [])
+            #print(X_train)
+        #for x in test:
+        for x in test:
+            extract_feature(X_test, x, [])
+
+        if val:
+            for x in val:
+                extract_feature(X_val, x, [])
 
 
-    if val:
-        for x in val:
-            extract_feature(X_val)
 
     #x_train = feat.train_feature(x[kTEXT_FIELD] for x in train)
     x_train = feat.train_feature(X_train)

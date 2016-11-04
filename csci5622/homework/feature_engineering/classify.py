@@ -108,8 +108,17 @@ def extract_feature(X, x, stanford_tokens):
     for genre in genres:
         dic_text_field["GENRE=" + genre] = 1
         dic_text_field[x[kTROPE_FIELD] + "_GENRE=" + genre] = 1
-        if "Kill" in x[kTROPE_FIELD]:
-            dic_text_field["TROPE=KILL"] = 1
+    if "Kill" in x[kTROPE_FIELD]:
+        dic_text_field["TROPE=KILL"] = 1
+    if "Spoiler" in x[kTROPE_FIELD]:
+        dic_text_field["TROPE=SPOILER"] = 1
+    if "Ending" in x[kTROPE_FIELD]:
+        dic_text_field["TROPE=ENDING"] = 1
+    if "Death" in x[kTROPE_FIELD]:
+        dic_text_field["TROPE=DEATH"] = 1
+ 
+ 
+ 
     #dic_text_field["RUNNING_TIME="] = np.log(runningtime)
 
     sentence = x[kTEXT_FIELD]

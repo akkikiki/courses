@@ -457,3 +457,24 @@ Neg: often, digit_'s, usual, nice, school, GENRE=Game-Show, no_digit, alway, tow
 Pos: ship, GENRE=Sci-Fi, work_for, aliv, GENRE=Drama, ultim, discov, k, __person___kill, Foreshadowing_GENRE=Drama, thank, end, destini, kill, day_digit, turn_out, season_digit, reveal, TROPE=KILL, die
 Neg: often, alway, portray, __person___her, skill, etc, digit_'s, produc, whenev, no_digit, GENRE=Documentary, usual, product, __organization___episod, of_which, dress, he_tell, wall, GENRE=Game-Show, nice
 On Kaggle: 0.72900
+
+
+Pos: GENRE=Drama, ultim, complet, final, evid, reveal, subvert, sinc_the, end, season_final, stab, that___person__, GENRE=Thriller, season_digit, day_digit, kill, thank, die, TROPE=ENDING, seri_digit
+Neg: GENRE=Sport, GENRE=Game-Show, wear, more_than, digit_'s, digit_episod, frequent, air, natur, music, class, portray, than, occasion, if_he, offic, usual, women, star, __person___on
+[False  True  True ..., False False False]
+1501
+validation set accuracy: 0.686245819398
+
+# +TROPE=ENDING
+Pos: that___person__, TROPE=KILL, stab, thought, evid, TROPE_WhamEpisode_the, but_the, reveal, complet, guild, point_of, end, GENRE=Drama, 's_death, season_final, GENRE=Thriller, die, kill, seri_digit, TROPE=ENDING
+Neg: GENRE=Game-Show, wear, GENRE=Sport, women, digit_'s, class, the_show, if_he, skill, usual, often, offic, featur, tv, each, dress, GENRE=Family, air, __person___her, music
+[False  True  True ..., False False False]
+1493
+validation set accuracy: 0.687918060201
+
+# +TROPE=DEATH
+Pos: GENRE=Drama, AnguishedDeclarationOfLove_GENRE=Comedy, discov, thank, end, evid, that___person__, 's_reveal, subvert, TROPE_WhamEpisode___person__, season_final, kill, GENRE=Thriller, day_digit, die, TROPE=DEATH, season_digit, 's_death, seri_digit, TROPE=ENDING
+Neg: often, GENRE=Sport, the_show, releas, music, more_than, wear, nice, offic, than, each, usual, GENRE=Game-Show, alway, school, smoke, skill, natur, tv, air
+[False  True  True ..., False False False]
+1477
+validation set accuracy: 0.691262541806

@@ -1,0 +1,459 @@
+Unigram feature: Best accuracy 0.61872909699
++bigram feature: Best accuracy 0.636078595318
+(all words lower cased)
+
+
+PAGE + Tropes feature:
+Best accuracy
+validation set accuracy: 0.667433110368
+
++ bigram
+validation set accuracy: 0.668060200669
+
++ '"' stripping
+validation set accuracy: 0.663879598662
+
+
++ ',' stripping
+validation set accuracy: 0.667851170569
+
++ '()' stripping
+Data limit: 10000 out of 14784
+Label set: ['False', 'True']
+Pos: TROPE_WhamEpisode, TROPE_WhamLine, PAGE_BeingHuman, PAGE_Nikita, Gokai, PAGE_CriminalMinds, ., PAGE_TwentyFour, PAGE_Fringe, PAGE_AmericanHorrorStory
+Neg: PAGE_BoyMeetsWorld, PAGE_Mythbusters, PAGE_HannahMontana, PAGE_TheRedGreenShow, PAGE_ILoveLucy, party, that_a, Other, PAGE_OneThousandWaysToDie, Cory
+[False  True False ..., False False False]
+1573
+validation set accuracy: 0.671195652174
+
+
++ '"' stripping
+validation set accuracy: 0.667433110368
+
+
++ "-" stripping
+validation set accuracy: 0.672240802676
+
++ ":" stripping
+validation set accuracy: 0.669523411371
+
++ "*" stripping
+validation set accuracy: 0.670359531773
+
+- page (does not appear in test data)
+validation set accuracy: 0.690217391304
+Pos: TROPE_VillainousBreakdown, TROPE_OhCrap, TROPE_BittersweetEnding, TROPE_ChekhovsGun, TROPE_XanatosGambit, TROPE_NiceJobBreakingItHero, TROPE_Foreshadowing, ., TROPE_WhamLine, TROPE_WhamEpisode
+Neg: Tim, nice, TROPE_ABC, he_tells, often, usually, to_become, Cory, party, TROPE_ShoutOut
+
+- bigram
+validation set accuracy: 0.687918060201
+Pos: TROPE_AnyoneCanDie, kills, TROPE_TheMole, TROPE_Foreshadowing, Morgana, TROPE_VillainousBreakdown, ., Gokai, TROPE_WhamLine, TROPE_WhamEpisode
+Neg: Cory, actor, understandable, TROPE_SitCom, wearing, battle, problems, Jill, Cybermen, Did
+
+- ...
+validation set accuracy: 0.685409698997
+
+
+Pos: TROPE_TheMole, ., die, Morgana, Julia, TROPE_RealLifeWritesThePlot, TROPE_Foreshadowing, TROPE_VillainousBreakdown, TROPE_WhamLine, TROPE_WhamEpisode
+Neg: understandable, nice, Cory, tunnel, Laughs, wearing, party, TROPE_Jerkass, he'll, TROPE_SitCom
+[False  True False ..., False False False]
+1527
+validation set accuracy: 0.680811036789
+
+
+lowercased
+validation set accuracy: 0.677675585284
+
+
+strip ".", combine unigram and Trope feature
+validation set accuracy: 0.655518394649
+
+
+#not strip ".", combine unigram and Trope feature
+Pos: death, nathan, regina, revealed, morgana, olivia, die, finale, kills, .
+Neg: party, al, frequently, actor, cory, wearing, adam, always, town, pilot
+[False  True False ..., False False False]
+1525
+validation set accuracy: 0.68122909699
+
+Ignoring uppercase words
+validation set accuracy: 0.683737458194
+
+
+Pos: shoots, TROPE_WhamEpisode_the, death, TROPE_Foreshadowing_a, offscreen, dies, revealed, die, finale, kills
+Neg: seasons, nice, often, wearing, party, usually, frequently, occasionally, women, starring
+[False  True False ...,  True False False]
+1649
+validation set accuracy: 0.655309364548
+
+
+Stemming on
+Pos: TROPE_WhamEpisode_of, TROPE_WhamEpisode_the, end, death, offscreen, kill, reveal, TROPE_Foreshadowing_a, stab, die
+Neg: nice, portray, impress, often, air, usual, music, danc, you'r, TROPE_DownerEnding_with
+[False  True  True ..., False False False]
+1618
+validation set accuracy: 0.661789297659
+
+
+Pos: stab, end, TROPE_WhamEpisode_the, death, kill, final, reveal, offscreen, TROPE_Foreshadowing_a, die
+Neg: releas, air, parti, music, shop, usual, often, nice, show', star
+[False False False ...,  True False False]
+1618
+validation set accuracy: 0.661789297659
+
+
+# 4th submission
+Fujinuma@rl1-1-157-193-dhcp:~/work/csci_machine_learning/courses/csci5622/homework/feature_engineering$ python3 classify.py
+Label set: ['False', 'True']
+Pos: shoot, TROPE_Foreshadowing_a, TROPE_WhamLine_to, death, offscreen, TROPE_WhamEpisode_the, reveal, assassin, kill, die
+Neg: often, usual, leg, portray, nice, remark, shop, dress, air, danc
+0.68564 in the leaderboard
+validation set accuracy: 0.659908026756
+
+
+* bigram feature
+Pos: TROPE_Foreshadowing_a, season_finale, discov, reveal, TROPE_WhamEpisode_the, end, death, stab, kill, die
+Neg: often, natur, usual, music, parti, air, dress, nice, women, that_a
+[False False False ..., False False False]
+1630
+validation set accuracy: 0.659280936455
+
+Pos: season_finale, discov, TROPE_WhamEpisode_the, death, the_season, reveal, stab, TROPE_Foreshadowing_a, kill, die
+Neg: air, releas, often, danc, wear, that_a, usual, more_than, women, the_show
+[False False False ..., False False False]
+1614
+validation set accuracy: 0.66262541806
+
+Pos: offscreen, complet, end, reveal, death, final, univers, TROPE_WhamEpisode_the, kill, die
+Neg: releas, air, usual, star, often, parti, wear, nice, natur, alway
+[False False False ..., False False False]
+1586
+validation set accuracy: 0.66847826087
+
+
++ STOPWORDS removal
+Pos: shoot, final, offscreen, death, season_finale, end, reveal, discov, die, kill
+Neg: that_a, usual, releas, often, parti, air, dress, impress, wear, natur
+[False False False ..., False False False]
+1629
+validation set accuracy: 0.659489966555
+
+Pos: final, the_season, offscreen, end, reveal, discov, death, stab, die, kill
+Neg: often, that_a, releas, air, to_become, usual, battl, danc, fear, specif
+[False  True False ..., False False False]
+1604
+
+
+Pos: season_finale, offscreen, final, plan, stab, reveal, end, death, die, kill
+Neg: parti, usual, music, impress, often, air, natur, occasion, fun, nice
+[False False False ..., False False False]
+1614
+validation set accuracy: 0.66262541806
+
+* without "." stripping
+Pos: discov, end, stab, shoot, evid, death, die, final, kill, .
+Neg: nice, air, often, releas, dress, host, usual, skill, TROPE_ShoutOut_., star
+[False  True False ..., False False False]
+1492
+validation set accuracy: 0.688127090301
+
+# masking numbers
+Pos: wanted_to, save, final, Day_DIGIT, evid, discov, mind, series_three, could_have, plan, #DIGIT, offscreen, Season_DIGIT, end, stab, death, season_finale, reveal, kill, die
+Neg: usual, dress, wear, often, that_a, frequent, each, parti, music, air, star, nice, occasion, natur, skill, though_she, no_one, danc, demon, shop
+[False  True False ..., False False False]
+1632
+validation set accuracy: 0.658862876254
+
+
+Pos: unsub, shoot, shock, turns_out, series_DIGIT, discov, assassin, final, end, Season_DIGIT, #DIGIT, Day_DIGIT, mind, offscreen, death, stab, reveal, season_finale, kill, die
+Neg: air, that_a, releas, danc, have_the, nice, natur, parti, wear, skill, dress, occasion, you'r, often, frequent, usual, than, town, cast, start_of
+[False False False ..., False False False]
+1639
+validation set accuracy: 0.657399665552
+
+
+Pos: season___digit__, averted_in, univers, plan, __digit__x__digit__, count, final, #__digit__, turns_out, end, discov, offscreen, death, season_finale, stab, series___digit__, reveal, day___digit__, die, kill
+Neg: parti, air, that_a, of__digit__, host, __digit__', show', more_than, natur, shop, star, town, wear, nice, music, usual, demon, each, frequent, fed
+[False False False ..., False False False]
+1636
+validation set accuracy: 0.658026755853
+
+
+Pos: averted_in, subvert, save, TROPE_WhamEpisode_start, stab, shoot, #__digit__, day___digit__, end, final, offscreen, turns_out, discov, season_finale, death, reveal, __digit__x__digit__, series___digit__, kill, die
+Neg: air, releas, that_a, danc, nice, of__digit__, parti, dress, shop, each, wear, usual, host, show', occasion, women, glass, star, crew, demon
+[False False False ..., False False False]
+1658
+validation set accuracy: 0.653428093645
+
+
+Pos: it's_revealed, mind, final, season_finale, turns_out, offscreen, his_family, episode___digit__, __digit__x__digit__, day___digit__, #__digit__, discov, end, averted_in, reveal, death, series___digit__, stab, kill, die
+Neg: that_a, dress, wear, host, air, you'r, usual, nice, impress, danc, beauti, each, natur, specif, more_than, of__digit__, encount, though_she, like_that, on_his
+[False False False ..., False False False]
+1649
+validation set accuracy: 0.655309364548
+
+
+Label set: ['False', 'True']
+Pos: end, stab, surviv, plan, before_she, shoot, offscreen, day___digit__, season___digit__, turns_out, save, __digit__x__digit__, assassin, discov, season_finale, episode___digit__, death, reveal, kill, die
+Neg: of__digit__, that_a, nice, dress, fix, remark, produc, air, leg, alway, i_know, danc, small, you'r, show, usual, him_on, parti, he_tells, portray
+# 5th submission
+0.66531
+
+
+Pos: count, them_are, plan, aliv, final, discov, thank, save, offscreen, Season___DIGIT__, work_for, death, season_final, end, Day___DIGIT__, reveal, seri___DIGIT__, die, stab, kill
+Neg: often, air, parti, portray, occasion, wear, town, each, class, tend, nice, law, natur, you'r, alway, impress, usual, danc, specif, mostli
+[False False  True ..., False False False]
+1643
+validation set accuracy: 0.656563545151
+
+
+Pos: TROPE_DespairEventHorizon, TROPE_ChekhovsGun, Day___DIGIT__, TROPE_BittersweetEnding, reveal, TROPE_DysfunctionJunction, TROPE_AnyoneCanDie, TROPE_ItsPersonal, TROPE_OhCrap, TROPE_DrivenToSuicide, offscreen, die, stab, seri___DIGIT__, TROPE_NiceJobBreakingItHero, TROPE_TheMole, TROPE_VillainousBreakdown, TROPE_Foreshadowing, TROPE_WhamLine, TROPE_WhamEpisode
+Neg: TROPE_GilliganCut, music, specif, often, dress, TROPE_Jerkass, host, parti, TROPE_SitCom, more_than, natur, complain, TROPE_LaserGuidedKarma, nice, he_tell, wear, person_in, class, releas, TROPE_MissingMom
+[False  True  True ...,  True False False]
+1578
+validation set accuracy: 0.670150501672
+
+
++ Seasons precessing
+Pos: act_like, new_directions, he_do, offscreen, william_bell, who_didn't, day_digit, TROPE_VillainousBreakdown, season_final, TROPE_OhCrap, seri_digit, TROPE_ChekhovsGun, reveal, TROPE_NiceJobBreakingItHero, death, TROPE_WhamLine, kill, die, TROPE_Foreshadowing, TROPE_WhamEpisode
+Neg: lock_in, star, the_sister, usual, the_light, air, think_that, more_than, parti, wear_the, the_gang, releas, he_left, wa_kill, end_she, each, be_true, one_episod, him_on, group_of
+[False False False ..., False False  True]
+1674
+validation set accuracy: 0.65008361204
+
+Pos: TROPE_KilledOffForReal, seri_digit, TROPE_DrivenToSuicide, TROPE_DysfunctionJunction, TROPE_BittersweetEnding, TROPE_DespairEventHorizon, TROPE_AnyoneCanDie, die, day_digit, TROPE_ChekhovsGun, stab, TROPE_SoundtrackDissonance, offscreen, TROPE_TheMole, TROPE_OhCrap, TROPE_NiceJobBreakingItHero, TROPE_Foreshadowing, TROPE_WhamLine, TROPE_VillainousBreakdown, TROPE_WhamEpisode
+Neg: releas, complain, TROPE_GilliganCut, usual, person_in, nice, air, the_sister, wa_kill, frequent, parti, often, host, TROPE_RunningGag, he_left, music, end_she, star, class, TROPE_SitCom
+[False  True  True ..., False False False]
+1602
+validation set accuracy: 0.665133779264
+
+Pos: aliv, TROPE_MindScrew, TROPE_EverybodyIsSingle, die, TROPE_KickTheDog, kill, TROPE_ParentalAbandonment, TROPE_DysfunctionJunction, TROPE_AnyoneCanDie, TROPE_ChekhovsGun, TROPE_PromotionToParent, seri_digit, TROPE_TheMole, TROPE_OhCrap, TROPE_VillainousBreakdown, TROPE_NiceJobBreakingItHero, TROPE_Foreshadowing, TROPE_WhamLine, TROPE_WhamEpisode, .
+Neg: air, women, the_sister, nice, star, usual, TROPE_ShoutOut, the_show, wa_kill, host, TROPE_Jerkass, TROPE_SitCom, parti, produc, skill, dress, one_episod, town, frequent, natur
+[False  True  True ..., False False False]
+1479
+validation set accuracy: 0.690844481605
+
+
+Pos: TROPE_ItsPersonal, death, TROPE_EverybodyIsSingle, TROPE_KickTheDog, stab, TROPE_BittersweetEnding, kill, die, seri_digit, TROPE_OhCrap, TROPE_DysfunctionJunction, TROPE_TheMole, TROPE_ChekhovsGun, TROPE_NiceJobBreakingItHero, TROPE_DrivenToSuicide, TROPE_Foreshadowing, TROPE_VillainousBreakdown, TROPE_WhamLine, TROPE_WhamEpisode, .
+Neg: releas, air, usual, parti, danc, nice, the_show, star, TROPE_GilliganCut, music, town, TROPE_RunningGag, that_a, host, the_sister, skill, fall_for, frequent, dress, fed
+[False  True False ..., False False False]
+1478
+validation set accuracy: 0.691053511706
+
+
+Pos: TROPE_AnyoneCanDie, mind, TROPE_ItsPersonal, TROPE_ManipulativeBastard, die, TROPE_BittersweetEnding, seri_digit, TROPE_MoodWhiplash, TROPE_DysfunctionJunction, season_final, day_digit, kill, TROPE_TheMole, stab, TROPE_NiceJobBreakingItHero, TROPE_Foreshadowing, TROPE_VillainousBreakdown, TROPE_OhCrap, TROPE_WhamLine, TROPE_WhamEpisode
+Neg: danc, releas, TROPE_GilliganCut, air, parti, frequent, music, each, TROPE_RunningGag, TROPE_CatchPhrase, portray, complain, often, is_so, TROPE_SitCom, the_sister, impress, TROPE_ChuckCunninghamSyndrome, specif, typic
+[False  True  True ..., False False False]
+1619
+validation set accuracy: 0.661580267559
+
+http://www.umiacs.umd.edu/~jbg/docs/2013_spoiler.pdf
+
+
+
+
+Pos: will_., as_they, TROPE_DespairEventHorizon, TROPE_KickTheDog, TROPE_DysfunctionJunction, stab, TROPE_DrivenToSuicide, TROPE_OhCrap, day_digit, TROPE_ItsPersonal, TROPE_AnyoneCanDie, kill, seri_digit, season_final, TROPE_TheMole, TROPE_VillainousBreakdown, TROPE_NiceJobBreakingItHero, TROPE_Foreshadowing, TROPE_WhamLine, TROPE_WhamEpisode
+Neg: danc, releas, nice, TROPE_GilliganCut, host, that_a, is_so, natur, music, often, air, TROPE_SitCom, parti, shop, sketch, frequent, dress, TROPE_RunningGag, and_also, demon
+[False False  True ..., False False False]
+1578
+validation set accuracy: 0.670150501672
+
+
+
+Pos: stab, season_final, TROPE_VillainousBreakdown, TROPE_NoNameGiven, TROPE_BittersweetEnding, shoot, TROPE_ChekhovsGun, TROPE_DrivenToSuicide, day_digit, TROPE_RealLifeWritesThePlot, die, TROPE_KilledOffForReal, TROPE_TheReveal, TROPE_OhCrap, TROPE_XanatosGambit, TROPE_TheMole, TROPE_NiceJobBreakingItHero, TROPE_Foreshadowing, TROPE_WhamLine, TROPE_WhamEpisode
+Neg: often, TROPE_CatchPhrase, and_when, portray, TROPE_SitCom, TROPE_GilliganCut, TROPE_DeadpanSnarker, etc, is_so, danc, head_., he_tell, TROPE_Jerkass, TROPE_ABC, dress, that_a, fix, TROPE_MissingMom, digit_digit, accent
+
+
+
+Pos: mind, TROPE_WhamEpisode_the, episode_digit, univers, death, TROPE_BigBad_., TROPE_Foreshadowing_a, final, stab, season_digit, discov, TROPE_TheMole_., reveal, season_final, die, seri_digit, day_digit, kill, TROPE_WhamLine_., TROPE_WhamEpisode_.
+Neg: air, often, featur, star, releas, usual, tv, that_a, the_show, nice, wear, dress, TROPE_CatchPhrase_., town, parti, base, class, portray, is_so, skill
+[False False False ..., False False False]
+1577
+validation set accuracy: 0.670359531773
+
+
+Pos: TROPE_NiceJobBreakingItHero_., subvert, but_the, season_digit, discov, ._digit, reveal, scene, mind, work_for, a_child, TROPE_TheMole_., death, season_final, die, TROPE_WhamLine_., TROPE_WhamEpisode_., kill, stab, seri_digit
+Neg: music, releas, nice, that_a, air, danc, usual, the_show, parti, tv, wear, each, skill, impress, women, host, open, than, portray, digit_digit
+[False  True False ..., False False False]
+1576
+validation set accuracy: 0.670568561873
+
+
+Pos: come_back, ._digit, TROPE_TheMole_., to_save, TROPE_Foreshadowing_a, TROPE_BigBad_., a_car, TROPE_NiceJobBreakingItHero_., episode_digit, day_digit, death, season_digit, season_final, stab, reveal, TROPE_WhamLine_., die, seri_digit, TROPE_WhamEpisode_., kill
+Neg: often, than, parti, nice, danc, portray, wear, usual, the_show, dress, tv, that_a, releas, impress, natur, featur, each, air, ad, skill
+[False  True False ..., False False False]
+1567
+validation set accuracy: 0.672449832776
+
+
+# more data
+Pos: the_season, TROPE_BigBad_., guild, in_time, work_for, TROPE_Foreshadowing_a, discov, day_digit, stab, season_digit, TROPE_XanatosGambit_., TROPE_OhCrap_., reveal, death, seri_digit, TROPE_TheMole_., TROPE_WhamLine_., kill, die, TROPE_WhamEpisode_.
+Neg: often, nice, usual, produc, each, alway, air, occasion, danc, portray, pilot, interview, TROPE_CatchPhrase_., featur, dress, releas, and_when, point_out, her_when, remark
+[False  True  True ..., False False False]
+561
+validation set accuracy: 0.685538116592
+
+
+Pos: VillainousBreakdown_GENRE=NONE, turn_out, their_own, is_also, downer_ending, EmbarrassingMiddleName_GENRE=Comedy, and_that, HeelFaceRevolvingDoor_GENRE=NONE, discov, AnguishedDeclarationOfLove_GENRE=Comedy, WhamEpisode_GENRE=Drama, GENRE=Thriller, JerkWithAHeartOfGold_GENRE=NONE, Foreshadowing_GENRE=Drama, seri_digit, day_digit, kill, die, season_final, stab
+Neg: GENRE=Sport, GENRE=Game-Show, tv, that_a, often, air, nice, more_than, dress, music, usual, and_also, parti, the_show, -_in, PutOnABus_GENRE=NONE, host, shop, still_in, skill
+[False  True  True ..., False False False]
+1545
+validation set accuracy: 0.677048494983
+
+
+Pos: hand, BittersweetEnding_GENRE=Horror, reveal, VillainousBreakdown_GENRE=NONE, JerkWithAHeartOfGold_GENRE=NONE, and_that, kill, EmbarrassingMiddleName_GENRE=Comedy, point_of, NiceJobBreakingItHero_GENRE=Comedy, turn_out, AnguishedDeclarationOfLove_GENRE=Comedy, die, WhamEpisode_GENRE=Drama, it_as, stab, WhamLine_GENRE=Sci-Fi, season_final, seri_digit, day_digit
+Neg: GENRE=Game-Show, GENRE=Sport, releas, nice, music, that_a, the_show, air, portray, featur, dress, often, natur, wear, the_light, host, parti, he_tell, shop, class
+[False  True  True ..., False False False]
+1522
+validation set accuracy: 0.681856187291
+
+
+Pos: TROPE_TheDulcineaEffect, TROPE_HeroicBSOD, TROPE_EmbarrassingMiddleName, TROPE_OhCrap, mind, seri_digit, kill, TROPE_MoodWhiplash, subvert, TROPE_TheMole, season_final, TROPE_BittersweetEnding, day_digit, die, stab, TROPE_VillainousBreakdown, TROPE_Foreshadowing, TROPE_NiceJobBreakingItHero, TROPE_WhamLine, TROPE_WhamEpisode
+Neg: GENRE=Game-Show, GENRE=Sport, releas, nice, that_a, often, danc, skill, usual, demon, portray, tv, music, TROPE_GilliganCut, air, no_digit, class, though_she, natur, town
+[False  True  True ..., False False False]
+1501
+validation set accuracy: 0.686245819398
+
+Pos: scream, worker, sinc_the, kill, TROPE_AnguishedDeclarationOfLove, TROPE_TheMole, TROPE_TheDulcineaEffect, discov, die, TROPE_OhCrap, TROPE_MoodWhiplash, season_final, day_digit, stab, TROPE_Foreshadowing, seri_digit, TROPE_NiceJobBreakingItHero, TROPE_VillainousBreakdown, TROPE_WhamLine, TROPE_WhamEpisode
+Neg: that_a, GENRE=Game-Show, GENRE=Sport, often, parti, nice, usual, TROPE_GilliganCut, danc, impress, kitt, air, though_she, music, releas, skill, TROPE_ChuckCunninghamSyndrome, TROPE_TakeThat, TROPE_CatchPhrase, no_digit
+[False  True  True ..., False False False]
+1505
+validation set accuracy: 0.685409698997
+
+
+Pos: it_as, Foreshadowing_GENRE=Comedy, shoot, WhamEpisode_GENRE=Comedy, reveal, thank_to, PutOnABus_GENRE=Comedy, WhamEpisode_GENRE=NONE, turn_out, episod_later, EmbarrassingMiddleName_GENRE=Comedy, JerkWithAHeartOfGold_GENRE=NONE, VillainousBreakdown_GENRE=NONE, WhamLine_GENRE=Sci-Fi, discov, kill, WhamEpisode_GENRE=Drama, die, day_digit, Foreshadowing_GENRE=Drama
+Neg: often, that_a, nice, GENRE=Game-Show, GENRE=Documentary, alway, skill, GilliganCut_GENRE=Comedy, no_digit, dress, him_on, etc, the_sister, have_the, video, GENRE=News, he_tell, usual, and_when, remark
+
+
+Pos: reveal, season_digit, mind, turn_out, work_for, kill, JerkWithAHeartOfGold_GENRE=NONE, EmbarrassingMiddleName_GENRE=Comedy, AnguishedDeclarationOfLove_GENRE=Comedy, WhamEpisode_GENRE=Drama, Foreshadowing_GENRE=Drama, GENRE=Thriller, WhamLine_GENRE=Sci-Fi, season_final, day_digit, VillainousBreakdown_GENRE=NONE, die, seri_digit, stab, NUM__episode
+Neg: GENRE=Game-Show, nice, GENRE=Sport, tv, parti, dress, GENRE=Family, music, often, typic, no_digit, GENRE=Biography, you'r, host, releas, PutOnABus_GENRE=NONE, air, wear, class, think_that
+[False  True  True ..., False False False]
+1524
+validation set accuracy: 0.68143812709
+
+
+Pos: thank, but_the, TROPE_DrivenToSuicide, TROPE_ChekhovsGun, becom_digit, kill, break_up, die, season_digit, GENRE=Thriller, turn_out, TROPE_OhCrap, TROPE_NiceJobBreakingItHero, stab, day_digit, season_final, TROPE_VillainousBreakdown, TROPE_WhamEpisode, seri_digit, TROPE_WhamLine
+Neg: GENRE=Sport, nice, skill, GENRE=Game-Show, music, parti, natur, the_sister, shop, PutOnABus_GENRE=NONE, wear, at_an, air, kitt, portray, no_digit, tv, often, though_she, usual
+[False  True  True ..., False False False]
+1493
+validation set accuracy: 0.687918060201
+
+
+Pos: discov, season_final, TROPE_WhamEpisode_., TROPE_VillainousBreakdown, final, death, day_digit, point_of, aliv, subvert, reveal, GENRE=Thriller, stab, kill, turn_out, TROPE_WhamLine, die, TROPE_WhamLine_., season_digit, seri_digit
+Neg: skill, nice, GENRE=Sport, the_show, natur, GENRE=Game-Show, air, parti, GENRE=Family, usual, law, music, more_than, kitt, PutOnABus_GENRE=NONE, tend, no_digit, wear, GENRE=Documentary, impress
+[False  True  True ..., False False False]
+1470
+validation set accuracy: 0.692725752508
+
+
+Pos: end, discov, hi_bodi, TROPE_WhamEpisode_the, series_digit, seri_digit, mind, EmbarrassingMiddleName_GENRE=Comedy, TROPE_VillainousBreakdown, stab, GENRE=Drama, season_digit, day_digit, kill, TROPE_WhamEpisode, GENRE=Thriller, die, reveal, death, TROPE_WhamLine
+Neg: GENRE=Sport, skill, GENRE=Game-Show, air, nice, releas, featur, usual, often, the_show, specif, wear, music, than, danc, shop, parti, the_light, PutOnABus_GENRE=NONE, natur
+[False  True  True ..., False False False]
+1475
+validation set accuracy: 0.691680602007
+
+
+Pos: GENRE=Drama, evid, guild, part_of, season_digit, turn_out, EmbarrassingMiddleName_GENRE=Comedy, subvert, TROPE_VillainousBreakdown, day_digit, TROPE_WhamEpisode, death, GENRE=Thriller, seri_digit, kill, reveal, season_final, die, TROPE_WhamLine, stab
+Neg: GENRE=Sport, GENRE=Game-Show, nice, the_show, air, usual, tv, often, parti, than, star, natur, GENRE=Family, music, -_in, dress, wear, host, fear, kitt
+[False  True  True ..., False False False]
+1481
+validation set accuracy: 0.690426421405
+
+Pos: point_of, final, season_final, EmbarrassingMiddleName_GENRE=Comedy, turn_out, TROPE_VillainousBreakdown, day_digit, subvert, stab, save, thank, TROPE_WhamEpisode, but_the, death, GENRE=Thriller, kill, seri_digit, reveal, TROPE_WhamLine, die
+Neg: GENRE=Game-Show, air, GENRE=Sport, nice, often, class, usual, natur, the_show, GENRE=Biography, wear, PutOnABus_GENRE=NONE, more_than, have_the, portray, specif, ask, no_digit, typic, than
+[False  True  True ..., False False False]
+1472
+validation set accuracy: 0.692307692308
+
+
+Pos: discov, Foreshadowing_GENRE=Drama, real_name, EmbarrassingMiddleName_GENRE=Comedy, feel, subvert, seri_digit, day_digit, captur, of_seri, TROPE_DownerEnding, caught, season_digit, TROPE_WhamEpisode, turn_out, death, kill, reveal, TROPE_WhamLine, die
+Neg: often, GENRE=Game-Show, nice, air, GENRE=Sport, of_which, no_digit, one_episod, pilot, skill, alway, GENRE=Family, the_sister, specif, point_out, host, music, class, shop, dress
+[False False False ..., False False False]
+859
+validation set accuracy: 0.691451149425
+
+
+3x03 3 03
+Pos: TROPE_VillainousBreakdown, season_final, that_person, end, GENRE=Drama, 's_reveal, subvert, GENRE=Thriller, season_digit, complet, reveal, thank, TROPE_WhamEpisode, 's_death, guild, kill, TROPE_WhamLine, stab, seri_digit, die
+Neg: GENRE=Game-Show, GENRE=Sport, person_her, releas, class, occasion, usual, often, featur, more_than, dress, the_show, air, nice, digit_'s, school, gener, have_the, natur, alway
+[False  True  True ..., False False False]
+1512
+validation set accuracy: 0.683946488294
+
+
+Pos: stab, turn_out, __organization___in, season_digit, season_final, subvert, point_of, TROPE_VillainousBreakdown, that___person__, day_digit, mind, GENRE=Drama, TROPE_WhamEpisode, seri_digit, kill, thank, end, TROPE_WhamLine, GENRE=Thriller, die
+Neg: GENRE=Sport, GENRE=Game-Show, featur, usual, frequent, school, often, wear, digit_'s, occasion, digit_episod, establish, GENRE=Family, friend___person__, portray, music, air, each, than, GENRE=Biography
+[False  True False ..., False False False]
+1542
+validation set accuracy: 0.677675585284
+
+
+# + Named entities
+Pos: aliv, seri_digit, Foreshadowing_GENRE=Drama, __person___kill, k, thank, episod_digit, end, ultim, kill, turn_out, ship, season_digit, day_digit, final_the, TROPE_WhamEpisode, reveal, discov, TROPE_WhamLine, die
+Neg: often, skill, nice, digit_'s, GENRE=Game-Show, etc, have_the, him_on, music, remark, larg, small, product, __person___up, could_n't, air, portray, wear, usual, GENRE=Family
+0.71409
+
+
+# * POS tags
+Pos: death, TROPE_VillainousBreakdown, aliv, turn_out, discov, 's_death, end, that___person__, thank, reveal, mind, TROPE_WhamLine, season_final, GENRE=Thriller, TROPE_WhamEpisode, kill, stab, final, seri_digit, die
+Neg: GENRE=Game-Show, often, GENRE=Sport, digit_'s, digit_-, usual, dress, air, each, __person___her, an_episod, the_show, class, frequent, music, tend, nice, __POS_NNPS__, tv, GENRE=Family
+[False  True  True ..., False False False]
+1532
+validation set accuracy: 0.679765886288
+
+
+Pos: final_the, shock, destini, end, seri_digit, forc, Foreshadowing_GENRE=Drama, thank, TROPE_WhamEpisode, reveal, 's_death, turn_out, season_final, count, season_digit, assassin, TROPE_WhamLine, discov, kill, die
+Neg: often, nice, GENRE=Game-Show, usual, digit_'s, etc, GENRE=Documentary, of_which, portray, town, could_n't, sing, pilot, whenev, if_he, no_digit, __gpe___be, __person___tri, alway, him_on
+
+
+-(delete )TROPE + word combined feature
+Pos: TROPE_SoundtrackDissonance, seri_digit, season_digit, TROPE_NiceJobBreakingItHero, GENRE=Thriller, 's_death, 's_reveal, TROPE_ChekhovsGun, evid, stab, TROPE_OhCrap, kill, turn_out, day_digit, thank, season_final, die, TROPE_VillainousBreakdown, TROPE_WhamLine, TROPE_WhamEpisode
+Neg: GENRE=Sport, skill, GENRE=Game-Show, nice, air, portray, __person___her, dress, usual, frequent, natur, wear, often, releas, he_left, though_she, avoid, tv, star, music
+[False  True  True ..., False False False]
+1511
+validation set accuracy: 0.684155518395
+
+
+-putting back TROPE + word combined feature, deleting TROPE-only feature
+Pos: mind, GENRE=Drama, TROPE_WhamEpisode_the, that___person__, of_seri, day_digit, TROPE_WhamEpisode___person__, count, reveal, aliv, earth, kill, season_digit, stab, 's_death, turn_out, GENRE=Thriller, end, die, seri_digit
+Neg: GENRE=Game-Show, GENRE=Sport, school, air, releas, featur, __person___her, usual, often, the_show, offic, digit_'s, GENRE=Family, frequent, star, the_open, each, dress, nice, few
+[False  True  True ..., False False False]
+1515
+validation set accuracy: 0.683319397993
+
+
+
+# +ACE parser
+Pos: caught, TROPE_WhamEpisode_the, __gpe___-, season_digit, __organization___-, reveal, turn_out, guild, work_for, GENRE=Drama, TROPE_WhamEpisode___person__, end, day_digit, point_of, kill, stab, GENRE=Thriller, 's_death, seri_digit, die
+Neg: GENRE=Sport, music, usual, __person___her, the_show, GENRE=Game-Show, often, releas, avoid, wear, more_than, digit_'s, than, tv, GENRE=Biography, nice, PutOnABus_GENRE=NONE, featur, dress, point_out
+[False  True  True ..., False False False]
+1488
+validation set accuracy: 0.688963210702
+
+# +Stanford NER
+Pos: TROPE_WhamLine_., shock, thank, turn_out, sinc_the, final, scene, GENRE=Thriller, season_digit, ,_gokai, 's_reveal, gokai, stab, reveal, kill, 's_death, end, death, die, seri_digit
+Neg: GENRE=Game-Show, __person___her, GENRE=Sport, digit_'s, ,_i, GENRE=Family, usual, ``___person__, )_in, impress, skill, __organization___., offic, star, alway, music, each, fun, GENRE=Documentary, more_than
+[False  True False ..., False False False]
+1476
+validation set accuracy: 0.691471571906
+
+Pos: final, TROPE_WhamEpisode_,, could_have, ,_gokai, assassin, episod_digit, end, TROPE_WhamLine_., ultim, aliv, discov, turn_out, Foreshadowing_GENRE=Drama, kill, 's_death, reveal, season_digit, gokai, die, destini
+Neg: often, small, GENRE=Documentary, music, skill, GENRE=Game-Show, __person___her, dress, usual, partner, if_he, featur, digit_'s, GENRE=Family, each, alway, __location_____location__, product, no_digit, __person___ask
+
++ TROPE=KILL
+Pos: captur, death, thank, TROPE=KILL, caught, 's_death, GENRE=Drama, stab, season_final, turn_out, with_him, but_the, day_digit, 's_reveal, GENRE=Thriller, point_of, end, die, kill, seri_digit
+Neg: GENRE=Sport, air, usual, __person___her, GENRE=Game-Show, often, more_than, releas, skill, digit_'s, the_show, dress, GENRE=Family, offic, portray, tv, each, star, than, music
+[False  True  True ..., False False False]
+1504
+validation set accuracy: 0.685618729097
+
+
+# One model
+Pos: thank, plan, death, shock, k, episod_digit, day_digit, assassin, 's_death, end, turn_out, season_digit, seri_digit, Foreshadowing_GENRE=Drama, ultim, TROPE=KILL, reveal, kill, discov, die
+Neg: often, digit_'s, usual, nice, school, GENRE=Game-Show, no_digit, alway, town, small, etc, __organization___episod, accent, portray, wear, if_he, defens, few, repeatedli, GENRE=Documentary
+
+
+# +TROPES = KILL
+Pos: ship, GENRE=Sci-Fi, work_for, aliv, GENRE=Drama, ultim, discov, k, __person___kill, Foreshadowing_GENRE=Drama, thank, end, destini, kill, day_digit, turn_out, season_digit, reveal, TROPE=KILL, die
+Neg: often, alway, portray, __person___her, skill, etc, digit_'s, produc, whenev, no_digit, GENRE=Documentary, usual, product, __organization___episod, of_which, dress, he_tell, wall, GENRE=Game-Show, nice
+On Kaggle: 0.72900

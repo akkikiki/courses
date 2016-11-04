@@ -73,9 +73,6 @@ dic_runningtime = read_running_list()
 
 class Featurizer:
     def __init__(self):
-        #self.vectorizer = CountVectorizer()
-        #self.bigram_vectorizer = CountVectorizer(ngram_range=(1, 2), token_pattern=r'\b\w+\b', min_df=1)
-        #self.vectorizer = CountVectorizer(ngram_range=(1, 2), token_pattern=r'\b\w+\b', min_df=1)
         self.vectorizer = DictVectorizer()
 
     def train_feature(self, examples):
@@ -117,25 +114,16 @@ def extract_feature(X, x, stanford_tokens):
     if "Death" in x[kTROPE_FIELD]:
         dic_text_field["TROPE=DEATH"] = 1
  
- 
- 
     #dic_text_field["RUNNING_TIME="] = np.log(runningtime)
 
     sentence = x[kTEXT_FIELD]
-    sentence = sentence.replace(',',' ')
-    sentence = sentence.replace('(',' ')
-    sentence = sentence.replace(')',' ')
-    sentence = sentence.replace('"',' ')
-    sentence = sentence.replace(':',' ')
-    sentence = sentence.replace(';',' ')
-    sentence = sentence.replace('*',' ')
-    #sentence = sentence.replace('...','')
+    punctuations = [',', '(', ')', '"', ':', ';', '*', '/', '!']
+    for punctuation in punctuations:
+        sentence = sentence.replace(punctuation, ' ')
     #sentence = sentence.replace('.',' .')
     #sentence = sentence.replace('.',' . ')
     sentence = sentence.replace('.','')
     sentence = sentence.replace('-',' - ')
-    sentence = sentence.replace('/',' ')
-    sentence = sentence.replace('!',' ')
     sentence = sentence.replace('?',' ? ')
     sentence = sentence.strip()
     #print(sentence)
@@ -237,10 +225,10 @@ def extract_feature(X, x, stanford_tokens):
 
             #if bigram[0].lower() == "episode":
             dic_text_field["NUM__"+ bigram[0].lower()] += int(bigram[1])
-            dic_text_field[bigram[0].lower() + "_digit"] += 1#.0/num_bigrams
+            dic_text_field[bigram[0].lower() + "_digit"] += 1
             print(bigram)
         else:
-            dic_text_field["_".join(bigram).lower()] += 1#.0/num_bigrams
+            dic_text_field["_".join(bigram).lower()] += 1
         # print("_".join(bigram))
     #for trigram in zip(processed_words, processed_words[1:], processed_words[2:]):
     #    if trigram[0].lower() in STOPWORDS:
@@ -308,8 +296,6 @@ if __name__ == "__main__":
     if args.stanford:
         for x, stanford_token in zip(train, stanford_tokens_train):
             extract_feature(X_train, x, stanford_token)
-            #print(X_train)
-        #for x in test:
         for x, stanford_token in zip(test, stanford_tokens_test):
             extract_feature(X_test, x, stanford_token)
 
@@ -319,8 +305,6 @@ if __name__ == "__main__":
     else:
         for x in train:
             extract_feature(X_train, x, [])
-            #print(X_train)
-        #for x in test:
         for x in test:
             extract_feature(X_test, x, [])
 

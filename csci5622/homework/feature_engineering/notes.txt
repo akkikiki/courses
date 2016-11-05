@@ -478,3 +478,231 @@ Neg: often, GENRE=Sport, the_show, releas, music, more_than, wear, nice, offic, 
 [False  True  True ..., False False False]
 1477
 validation set accuracy: 0.691262541806
+
+
+Pos: day_digit, subvert, TROPE=Big, TROPE=Villainous, discov, but_the, 's_reveal, TROPE=Heroic, complet, ultim, GENRE=Thriller, kill, that___person__, end, 's_death, stab, season_digit, seri_digit, die, TROPE=Wham
+Neg: GENRE=Sport, featur, GENRE=Game-Show, tv, digit_'s, wear, often, class, GENRE=Family, frequent, nice, school, the_show, usual, releas, TROPE=Word, each, small, air, __person___her
+[False  True  True ..., False False False]
+1497
+validation set accuracy: 0.687081939799
+
+
+Pos: bullet, TROPE=Big, turn_out, TROPE=Killed, TROPE=Heroic, final, stab, point_of, that___person__, work_for, mind, 's_death, season_final, end, GENRE=Thriller, season_digit, kill, seri_digit, die, TROPE=Wham
+Neg: GENRE=Sport, __person___her, GENRE=Game-Show, often, the_show, less, class, air, portray, alway, nice, digit_episod, women, skill, pilot, TROPE=B, usual, featur, each, offic
+[False  True  True ..., False False False]
+1492
+validation set accuracy: 0.688127090301
+
+
+Pos: TROPE=Dark, TROPE=Red, thank, aliv, end, ship, Foreshadowing_GENRE=Drama, TROPE=Killed, 's_death, k, reveal, discov, turn_out, kill, TROPE=Xanatos, episod_digit, season_digit, TROPE=Heroic, die, TROPE=Wham
+Neg: often, etc, featur, usual, GENRE=Documentary, no_digit, school, digit_'s, TROPE=Out, TROPE=Missing, wear, __organization___episod, whenev, air, portray, hi_friend, TROPE=B, town, PutOnABus_GENRE=NONE, GENRE=Game-Show
+Kaggle: 0.70596
+
+
+Pos: __gpe___the, count, complet, TROPE=DEATH, end, turn_out, thank, 's_death, day_digit, thought, season_final, TROPE_WhamEpisode_the, GENRE=Thriller, 's_reveal, kill, season_digit, die, TROPE_WhamEpisode___person__, TROPE=ENDING, seri_digit
+Neg: GENRE=Game-Show, often, dress, air, the_show, music, GENRE=Sport, GENRE=Family, digit_'s, releas, star, point_out, natur, than, usual, occasion, accent, if_he, school, __organization___episod
+[False  True  True ..., False False False]
+1503
+validation set accuracy: 0.685827759197
+
+
+Pos: 's_death, GENRE=Drama, TROPE_WhamEpisode___person__, TROPE_WhamEpisode_the, Foreshadowing_GENRE=Drama, end, season_digit, ultim, TROPE=DEATH, __person___kill, discov, turn_out, GENRE=NONE, thank, reveal, kill, episod_digit, TROPE=KILL, die, TROPE=ENDING
+Neg: often, etc, nice, usual, remark, __organization___episod, digit_'s, dress, __person___up, whenev, GENRE=Game-Show, skill, GENRE=Documentary, tend, drew, accent, -_season, him_on, of_which, __person___been
+On Kaggle 0.72493
+
+
+Pos: 's_reveal, final, 's_death, avert, but_the, TROPE_WhamEpisode___person__, work_for, point_of, day_digit, thank, season_digit, TROPE=KILL, subvert, GENRE=Thriller, end, seri_digit, kill, TROPE=ENDING, TROPE=DEATH, die
+Neg: GENRE=Sport, releas, star, usual, women, often, tv, GENRE=Game-Show, music, more_than, than, digit_'s, class, digit_episod, natur, shop, each, the_sister, featur, air
+[False  True  True ..., False False False]
+1518
+validation set accuracy: 0.682692307692
+
+
+Pos: TROPE=Spoiler, Foreshadowing_GENRE=Drama, captur, WhamLine_GENRE=Comedy, TROPE=Reveal, WhamEpisode_GENRE=Comedy, anyth_about, season_digit, TROPE=Kill, seri_digit, WhamEpisode_GENRE=Drama, 's_death, AnguishedDeclarationOfLove_GENRE=Comedy, EmbarrassingMiddleName_GENRE=Comedy, WhamLine_GENRE=Sci-Fi, die, TROPE=Ending, day_digit, TROPE=Death, TROPE=Hero
+Neg: GENRE=Game-Show, featur, complain, GENRE=Sport, tv, nice, whenev, digit_'s, more_than, school, music, star, he_tell, host, natur, smoke, second_episod, light, though_she, portray
+[False  True  True ..., False False False]
+1593
+validation set accuracy: 0.667015050167
+
+
+Pos: subvert, 's_death, complet, TROPE_WhamEpisode_the, turn_out, guild, season_final, GENRE=Thriller, on_their, TROPE_WhamEpisode___person__, final, kill, end, seri_digit, discov, die, thank, day_digit, TROPE=Death, TROPE=Ending
+Neg: GENRE=Game-Show, air, releas, __person___her, GENRE=Sport, offic, school, often, music, usual, the_show, nice, featur, dress, frequent, star, light, more_than, demon, town
+[False  True False ..., False False False]
+1525
+validation set accuracy: 0.68122909699
+
++ stanford entity
+Pos: kill, GENRE=Thriller, 's_reveal, subvert, avert, TROPE=Die, TROPE=Hero, discov, ,_gokai, TROPE_WhamLine_., TROPE_WhamEpisode_., TROPE=Death, 's_death, die, thank, TROPE=Ending, final, gokai, season_digit, seri_digit
+Neg: __person___her, GENRE=Game-Show, GENRE=Sport, the_show, ``___person__, GENRE=Family, tv, )_in, avoid, digit_'s, often, natur, alway, ,_i, music, GENRE=Comedy, few, portray, GENRE=Documentary, skill
+[False  True False ..., False False False]
+1458
+validation set accuracy: 0.695234113712
+
+
+Pos: #_digit, TROPE_WhamEpisode_., but_the, TROPE=Hero, ultim, reveal, scene, die, ,_that, ,_gokai, subvert, discov, season_digit, GENRE=Thriller, 's_death, kill, seri_digit, TROPE=Ending, final, gokai
+Neg: GENRE=Game-Show, ,_i, __person___her, skill, the_show, GENRE=Family, GENRE=Sport, no_digit, digit_'s, each, featur, releas, women, wear, usual, sketch, frequent, air, GENRE=Documentary, star
+[False  True  True ..., False False False]
+1453
+validation set accuracy: 0.696279264214
+Fujinuma@rl1-1-157-193-dhcp:~/work/csci_
+
+
+Pos: discov, with_him, him_,, evid, with_her, GENRE=Thriller, reveal, final, turn_out, kill, avert, 's_death, stab, end, die, season_digit, TROPE=Wham, TROPE=Hero, TROPE=Ending, seri_digit
+Neg: __person___her, GENRE=Sport, GENRE=Game-Show, the_show, if_he, parti, skill, wear, GENRE=Family, dress, featur, tv, women, digit_'s, star, usual, ``___person__, natur, GENRE=Comedy, have_the
+[False  True False ..., False False False]
+1457
+validation set accuracy: 0.69544314381
+
+
+Pos: AnguishedDeclarationOfLove_GENRE=Comedy, TROPE=Reveal, subvert, now, season_digit, __gpe___digit, guild, TROPE=Gambit, turn_out, end, kill, die, GENRE=Thriller, season_final, thank, 's_reveal, seri_digit, TROPE=Ending, TROPE=Hero, TROPE=Wham
+Neg: skill, the_show, air, GENRE=Game-Show, GENRE=Sport, often, nice, tv, school, more_than, releas, digit_'s, music, GENRE=Family, parti, featur, natur, no_digit, avoid, star
+[False  True  True ..., False False False]
+1518
+validation set accuracy: 0.682692307692
+
+
+Pos: discov, but_the, heel, affair, turn_out, reveal, complet, end, season_digit, ``_,, seri_digit, day_digit, TROPE=Hero, kill, die, 's_death, TROPE=Wham, TROPE=Ending, ,_gokai, gokai
+Neg: __person___her, featur, air, GENRE=Sport, frequent, usual, wear, GENRE=Family, often, ``___person__, avoid, digit_'s, skill, GENRE=Game-Show, few, tend, )_in, GENRE=Comedy, the___location__, star
+[False  True False ..., False False False]
+1457
+validation set accuracy: 0.695443143813
+
+
+Pos: 's_reveal, end, death, season_digit, GENRE=Drama, stab, kill, turn_out, shock, season_final, that___person__, TROPE=Kill, GENRE=Thriller, thank, seri_digit, TROPE=Hero, 's_death, die, TROPE=Ending, TROPE=Wham
+Neg: GENRE=Game-Show, GENRE=Sport, often, tv, __person___her, air, parti, music, the_show, digit_'s, featur, usual, -_in, occasion, releas, GENRE=Family, have_the, skill, school, specif
+[False  True  True ..., False False False]
+1510
+validation set accuracy: 0.684364548495
+
+
+Pos: season_digit, thirteen, Foreshadowing_GENRE=Drama, that___person__, 's_reveal, AnguishedDeclarationOfLove_GENRE=Comedy, subvert, complet, end, final, work_for, TROPE=Kill, GENRE=Thriller, kill, thank, season_final, turn_out, seri_digit, die, TROPE=Wham
+Neg: usual, air, natur, featur, GENRE=Sport, wear, women, frequent, partner, tv, digit_'s, GENRE=Game-Show, releas, than, school, skill, often, the_show, cast, sketch
+[False  True  True ..., False False False]
+1529
+validation set accuracy: 0.680392976589
+
+
+Pos: aliv, captur, TROPE_WhamEpisode___person__, count, now, episod_digit, discov, k, turn_out, thank, ultim, Foreshadowing_GENRE=Drama, end, season_digit, reveal, kill, TROPE=Gambit, TROPE=Kill, die, TROPE=Wham
+Neg: often, no_digit, dress, meant, portray, GENRE=Family, featur, digit_'s, alway, skill, accent, few, nice, __person___been, GENRE=Documentary, town, school, took, usual, of_which
+Kaggle: 0.73442
+
+
++ HEROIC, ENDING
+Pos: reveal, work_for, day_digit, stab, subvert, season_final, season_digit, TROPE=Heroic, Foreshadowing_GENRE=Drama, turn_out, kill, thank, ultim, TROPE=Kill, GENRE=Thriller, end, seri_digit, TROPE=Ending, die, TROPE=Wham
+Neg: GENRE=Sport, GENRE=Game-Show, digit_'s, releas, tv, wear, frequent, host, dress, air, the_show, often, usual, GENRE=Biography, skill, featur, class, school, demon, __person___her
+[False  True False ..., False False False]
+1526
+validation set accuracy: 0.68102006689
+
+
+
+ now, AnguishedDeclarationOfLove_GENRE=Comedy, ship, ultim, point_of, turn_out, thank, episod_digit, Foreshadowing_GENRE=Drama, discov, end, reveal, season_digit, kill, TROPE=Gambit, TROPE=Heroic, die, TROPE=Kill, TROPE=Ending, TROPE=Wham
+Neg: often, etc, GENRE=Game-Show, remark, could_n't, he_tell, alway, dress, featur, GENRE=Documentary, air, wear, __organization___episod, have_the, tv, __person___up, usual, no_digit, bounti, sing
+
+
+Pos: captur, work_for, stab, that___person__, 's_reveal, season_digit, subvert, guild, 's_death, kill, day_digit, TROPE=Kill, TROPE=Heroic, GENRE=Thriller, seri_digit, end, thank, TROPE=Ending, die, TROPE=Wham
+Neg: GENRE=Game-Show, featur, releas, GENRE=Sport, air, skill, the_show, usual, often, natur, music, dress, school, tv, digit_'s, __person___her, complain, host, -_in, wear
+[False  True  True ..., False False False]
+1486
+validation set accuracy: 0.689381270903
+
+
+Pos: point_of, aliv, final, reveal, AnguishedDeclarationOfLove_GENRE=Comedy, scream, TROPE=Gambit, day_digit, seri_digit, guild, 's_death, GENRE=Thriller, end, that___person__, TROPE=Kill, turn_out, kill, die, TROPE=Ending, TROPE=Wham
+Neg: digit_'s, offic, GENRE=Sport, star, often, GENRE=Game-Show, women, tv, occasion, more_than, class, music, air, sketch, usual, dress, natur, parti, the_show, wear
+[False  True  True ..., False False False]
+1516
+validation set accuracy: 0.683110367893
+
+
+Pos: but_the, AnguishedDeclarationOfLove_GENRE=Comedy, TROPE=Gambit, discov, kill, turn_out, point_of, final, reveal, subvert, stab, TROPE=Heroic, 's_death, end, TROPE=Kill, GENRE=Thriller, work_for, die, TROPE=Ending, TROPE=Wham
+Neg: air, often, GENRE=Sport, the_show, than, more_than, tv, GENRE=Game-Show, nice, offic, GENRE=Family, few, __person___on, class, frequent, natur, releas, music, accent, avoid
+[False  True False ..., False False False]
+1543
+validation set accuracy: 0.677466555184
+
+
+Pos: subvert, AnguishedDeclarationOfLove_GENRE=Comedy, turn_out, EmbarrassingMiddleName_GENRE=Comedy, scene, TROPE=Heroic, reveal, get_her, __person___pull, #, end, point_of, TROPE=Ending, 's_death, thank, kill, work_for, GENRE=Thriller, die, TROPE=Wham
+Neg: GENRE=Game-Show, GENRE=Sport, few, featur, tv, star, the_show, nice, GENRE=Family, releas, school, often, portray, -_in, usual, if_he, tend, music, than, skill
+[False  True  True ..., False False False]
+1517
+validation set accuracy: 0.682901337793
+
+
+Pos: EmbarrassingMiddleName_GENRE=Comedy, seri_3, he, 's_death, final, #, season_final, reveal, AnguishedDeclarationOfLove_GENRE=Comedy, GENRE=Drama, stab, TROPE=Ending, thank, of_seri, subvert, end, turn_out, die, GENRE=Thriller, TROPE=Wham
+Neg: music, GENRE=Sport, GENRE=Game-Show, dress, releas, nice, skill, __person___her, school, usual, impress, star, parti, GENRE=Biography, featur, air, few, more_than, frequent, produc
+[False  True False ..., False False False]
+1539
+validation set accuracy: 0.678302675585
+
+
+
+Pos: the_end, mistak, reveal, season_final, evid, seri_3, final, end, AnguishedDeclarationOfLove_GENRE=Comedy, GENRE=Drama, discov, stab, subvert, GENRE=Thriller, #, die, thank, turn_out, TROPE=Ending, TROPE=Wham
+Neg: GENRE=Game-Show, offic, tv, featur, often, class, more_than, GENRE=Sport, the_show, skill, releas, nice, dress, than, few, music, star, gener, GENRE=Family, natur
+[False  True False ..., False False False]
+1512
+validation set accuracy: 0.683946488294
+
+
+Pos: subvert, 's_death, mean, AnguishedDeclarationOfLove_GENRE=Comedy, stab, GENRE=Drama, __organization___-, but_the, evid, that___person__, caught, thank, final, #, reveal, turn_out, GENRE=Thriller, 's_reveal, die, TROPE=Wham
+Neg: GENRE=Sport, more_than, featur, GENRE=Game-Show, often, air, usual, GENRE=Family, __person___her, tv, releas, __gpe___for, the_show, music, wear, skill, than, -_in, nice, portray
+[False  True  True ..., False False False]
+1500
+validation set accuracy: 0.686454849498
+
+
+Pos: AnguishedDeclarationOfLove_GENRE=Comedy, __organization___-, GENRE=Drama, __person___an, actual, subvert, 's_death, reveal, that___person__, point_of, guild, complet, die, thank, season_final, stab, turn_out, end, GENRE=Thriller, TROPE=Wham
+Neg: tv, __person___her, GENRE=Sport, GENRE=Game-Show, women, featur, nice, often, GENRE=Family, releas, dress, wear, skill, usual, more_than, offic, the_show, star, cast, occasion
+[False  True  True ..., False False False]
+1529
+validation set accuracy: 0.680392976589
+
+
+Pos: EmbarrassingMiddleName_GENRE=Comedy, GENRE=Drama, discov, __person___pull, subvert, stab, bullet, 's_reveal, final, break_up, TROPE=Death____PERSON__, TROPE=Ending, thank, GENRE=Thriller, 's_death, die, end, turn_out, of_seri, TROPE=Wham
+Neg: GENRE=Sport, GENRE=Game-Show, often, star, tv, __person___on, frequent, the_show, air, __person___tri, usual, portray, skill, impress, music, releas, offic, class, wear, school
+[False  True False ..., False False False]
+1497
+validation set accuracy: 0.687081939799
+
+
+Pos: avert, Foreshadowing_GENRE=Comedy, scream, actual, sign, TROPE=Kill, AnguishedDeclarationOfLove_GENRE=Comedy, TROPE=Ending, reveal, point_of, subvert, GENRE=Drama, final, end, #, thank, die, turn_out, GENRE=Thriller, TROPE=Wham
+Neg: air, GENRE=Game-Show, GENRE=Sport, dress, music, skill, releas, __person___her, few, parti, star, smoke, -_in, nice, than, featur, avoid, the_show, sketch, __person___on
+[False  True False ..., False False False]
+1500
+validation set accuracy: 0.686454849498
+
+
+
+Pos: AnguishedDeclarationOfLove_GENRE=Comedy, __person___kill, subvert, event, thank, #, Foreshadowing_GENRE=Drama, TROPE=Death, destini, TROPE=Heroic, end, discov, k, 's_death, TROPE=Kill, TROPE=Ending, die, turn_out, reveal, TROPE=Wham
+Neg: often, product, GENRE=Game-Show, nice, portray, no_1, repeatedli, produc, GENRE=Documentary, 1_episod, air, dress, have_the, whenev, space, previou, class, TROPE_DeadpanSnarker___person__, alway, __person___up
+
+
++ without episode digit
+Pos: GENRE=Drama, stab, EmbarrassingMiddleName_GENRE=Comedy, subvert_when, evid, TROPE=Death____PERSON__, reveal, abduct, point_of, thank, season_final, TROPE_WhamEpisode_the, plan, TROPE_WhamEpisode___person__, end, #, turn_out, GENRE=Thriller, subvert, die
+Neg: GENRE=Sport, GENRE=Game-Show, usual, the_show, star, often, GENRE=Family, nice, accent, tv, each, air, wear, dress, music, occasion, GENRE=Biography, than, releas, whenev
+[False  True  True ..., False False False]
+1528
+validation set accuracy: 0.680602006689
+
++ episode digit
+Pos: shock, discov, thank, __organization___-, GENRE=Drama, __person___pull, earth, TROPE_WhamEpisode_the, die, plan, turn_out, complet, end, reveal, episode_digit, 's_reveal, subvert, #, TROPE=Ending, GENRE=Thriller
+Neg: often, GENRE=Sport, music, releas, usual, GENRE=Game-Show, the_show, occasion, dress, nice, host, than, portray, school, __person___on, wear, parti, more_than, women, alway
+[False  True  True ..., False False False]
+1517
+validation set accuracy: 0.682901337793
+
+
+Pos: Foreshadowing_GENRE=Drama, final, shock, now, point_of, TROPE=Kill____PERSON__, caught, WhamLine_GENRE=Sci-Fi, that___person__, 's_reveal, come_back, reveal, TROPE_WhamEpisode___person__, episode_digit, turn_out, subvert, TROPE=Ending, GENRE=Thriller, end, #
+Neg: GENRE=Game-Show, GENRE=Sport, __person___her, featur, releas, portray, often, air, music, occasion, more_than, star, if_he, frequent, wear, than, open, nice, 1_-, usual
+[False  True False ..., False False False]
+1526
+validation set accuracy: 0.68102006689
+
+
++ adding back episode and series digit
+Pos: subvert, shoot, captur, aliv, 's_death, k, actual, episod__digit_, Foreshadowing_GENRE=Drama, TROPE=Kill, turn_out, season__digit_, discov, end, TROPE_WhamEpisode_the, TROPE_WhamEpisode___person__, TROPE=Ending, die, reveal, ultim
+Neg: often, usual, etc, GENRE=Game-Show, _digit__'s, portray, school, accent, GENRE=Documentary, pilot, convict, talent, dress, air, space, nice, __person___up, alway, she_the, wear
+
+
+Pos: TROPE_WhamEpisode___person__, AnguishedDeclarationOfLove_GENRE=Comedy, TROPE=Death, aliv, end, subvert, k, ultim, Foreshadowing_GENRE=Drama, episod__digit_, thank, captur, ship, reveal, TROPE=Kill, discov, turn_out, die, day__digit_, TROPE=Ending
+Neg: often, usual, no__digit_, _digit__'s, nice, portray, GENRE=Game-Show, __organization___episod, GENRE=Documentary, alway, wear, featur, pilot, accent, class, drew, air, medic, have_the, tv
+Kaggle: 0.73306

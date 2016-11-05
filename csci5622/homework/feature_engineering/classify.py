@@ -97,27 +97,56 @@ class Featurizer:
 def extract_feature(X, x, stanford_tokens):
     dic_text_field = defaultdict(int)
     movie_title = x[kPAGE_FIELD]
+    if "WHAM" in x[kTROPE_FIELD]:
+        x[kTROPE_FIELD] = x[kTROPE_FIELD].replace("WHAM", "Wham")
     #if not movie_title.lower() in dic_genres:
     #    print("%s not found" % movie_title.lower())
     genres = dic_genres.get(movie_title.lower(), ["NONE"])
     runningtime = dic_runningtime.get(movie_title.lower(), 1)
-    
+    # print(x[kTROPE_FIELD])
     for genre in genres:
+        if genre == "NONE":
+            continue
         dic_text_field["GENRE=" + genre] = 1
         dic_text_field[x[kTROPE_FIELD] + "_GENRE=" + genre] = 1
-    if "Kill" in x[kTROPE_FIELD]:
-        dic_text_field["TROPE=KILL"] = 1
-    if "Spoiler" in x[kTROPE_FIELD]:
-        dic_text_field["TROPE=SPOILER"] = 1
-    if "Ending" in x[kTROPE_FIELD]:
-        dic_text_field["TROPE=ENDING"] = 1
-    if "Death" in x[kTROPE_FIELD]:
-        dic_text_field["TROPE=DEATH"] = 1
- 
-    #dic_text_field["RUNNING_TIME="] = np.log(runningtime)
+    # TODO: Just Split based on Capital Characters
+    # trope_words = []
+    # trope_word = ""
+    # for i, char in enumerate(x[kTROPE_FIELD]):
+    #     if char.isupper() and i != 0:
+    #         trope_words.append(trope_word)
+    #         # dic_text_field["TROPE=" + trope_word] = 1
+    #         trope_word = ""
+    #     trope_word += char
+
+    # print(trope_words)
+
+
+    #
+
+
+    # death_tropes = ["Kill", "Death", "Dead", "Die"]
+    # for target_trope in death_tropes:
+    #     if target_trope in x[kTROPE_FIELD]:
+    #         dic_text_field["TROPE=Death_related_trope"] = 1
+
+    # target_tropes = ["Kill", "Spoiler", "Ending", "Reveal", "Hero", "Die", "Gambit", "Wham"]
+    target_tropes = ["Kill", "Spoil", "Gambit", "Wham", "Heroic", "Ending", "Death", "Dead", "Chekhovs"]
+    target_tropes = ["Kill","Ending", "Death"]
+    for target_trope in target_tropes:
+        if target_trope in x[kTROPE_FIELD]:
+            dic_text_field["TROPE=" + target_trope] = 1
+
+    # dic_text_field["RUNNING_TIME="] = np.log(runningtime)
 
     sentence = x[kTEXT_FIELD]
+    # episode_title = re.match('"([\w ]+)"', sentence)
+    # if episode_title:# and re.match("([0-9]+)x([0-9]+)", sentence):
+    #     print(episode_title.group(1))
     punctuations = [',', '(', ')', '"', ':', ';', '*', '/', '!']
+    if '"' in sentence:
+        dic_text_field["QUOTATION_MARK"] = 1
+
     for punctuation in punctuations:
         sentence = sentence.replace(punctuation, ' ')
     #sentence = sentence.replace('.',' .')
@@ -128,9 +157,6 @@ def extract_feature(X, x, stanford_tokens):
     sentence = sentence.strip()
     #print(sentence)
     #sentence = x[kTEXT_FIELD].replace('.','')
-    #if sentence[-1] == ".":
-    #    sentence = sentence[-1]
-    #sentence = x[kTEXT_FIELD]
     #sentence = re.sub('([0-9]+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen)', '__DIGIT__', sentence)
 
 #
@@ -152,6 +178,14 @@ def extract_feature(X, x, stanford_tokens):
     for token in tokens:
         #print(token)
         word = token[0]
+        # if word in ["father", "mother"]:
+        #     word = "parent"
+        # if word in ["husband", "wife"]:
+        #     word = "spouse"
+        # if word in ["her", "she", "he", "his", "him"]:
+        #     word = "PRONOUN"
+
+
         """
         Stanford NER
         """
@@ -161,10 +195,30 @@ def extract_feature(X, x, stanford_tokens):
         """
         NLTK ACE-trained NER
         """
-            
+
         if hasattr(token, 'label') and token.label:
             #word = "__PERSON__"
             word = "__" + token.label() + "__"
+
+        for target_trope in target_tropes:
+            if target_trope in x[kTROPE_FIELD]:
+                dic_text_field["TROPE=" + target_trope + "__" + word] = 1
+
+        # for trope_word in trope_words:
+        #     dic_text_field["TROPE=" + trope_word + "__" + word] = 1
+
+        if word == "sucide":
+            word = "suicide"
+            # target_tropes = ["Kill","Ending", "Death"]
+
+        # if word in ["death", "die", "dead"]:
+        #     word = "death"
+        if word.lower() in ["kill", "kills", "killed", "killing", "killer",
+                    "murder", "murders", "murdered", "murdering", "murderer",
+                    "suicide", "suicides",
+                    "death", "died", "die", "dead"]:
+            dic_text_field["DEATH_RELATED_KEYWORD_NUM"] += 1
+
 
         #else:
         #    dic_text_field["__POS_" + token[1] + "__"] += 1
@@ -190,15 +244,20 @@ def extract_feature(X, x, stanford_tokens):
         m = re.match("([0-9]+)x([0-9]+)", word)
         if m:
             print(word, m.group(1), m.group(2))
-            #dic_text_field["NUM__season"] += int(m.group(1))
-            #dic_text_field["NUM__episode"] = min(int(m.group(2)), 10)
-            #dic_text_field["NUM__episode"] += int(m.group(2))
-            dic_text_field["season_digit"] += 1
-            dic_text_field["episode_digit"] += 1
+            # dic_text_field["NUM__season"] += int(m.group(1))
+            #dic_text_field["NUM__epiode"] = min(int(m.group(2)), 10)
+
+            if int(m.group(2)) >= 10:
+                dic_text_field["NUM__episode"] = 1
+            else:
+                dic_text_field["NUM__episode"] = 0
+            # dic_text_field["NUM__episode"] += int(m.group(2))
+            dic_text_field["season__digit_"] += 1
+            dic_text_field["episod__digit_"] += 1
             continue
         else:
             if re.match("^([0-9]+)$", word):
-                word = "DIGIT"
+                word = "_DIGIT_"
             dic_text_field[word] += 1#.0/len(words)
 
             #dic_text_field[word + "_GENRE=" + genre] = 1
@@ -217,25 +276,21 @@ def extract_feature(X, x, stanford_tokens):
     for bigram in zip(processed_words, processed_words[1:]):
         if bigram[0].lower() in STOPWORDS:
             continue
-        #dic_text_field["_".join(bigram).lower()] += 1
 
         #if bigram[0].lower() in ["season", "episode", "seri", "day"] and re.match("^([0-9]+)$", bigram[1]):
-        elif bigram[0].lower() in ["season", "episode"] and re.match("^([0-9]+)$", bigram[1]):
-            #dic_text_field["NUM__"+ bigram[0].lower()] = min(int(bigram[1]), 10)
 
-            #if bigram[0].lower() == "episode":
-            dic_text_field["NUM__"+ bigram[0].lower()] += int(bigram[1])
-            dic_text_field[bigram[0].lower() + "_digit"] += 1
+        # STEMMED!
+        elif bigram[0].lower() in ["episod", "season"] and re.match("^([0-9]+)$", bigram[1]):
+
+            if int(bigram[1]) >= 10:
+                dic_text_field["NUM__episode"] = 1
+            else:
+                dic_text_field["NUM__episode"] = 0
+            # dic_text_field["NUM__"+ bigram[0].lower()] += int(bigram[1])
+            dic_text_field[bigram[0].lower() + "__digit_"] += 1
             print(bigram)
         else:
             dic_text_field["_".join(bigram).lower()] += 1
-        # print("_".join(bigram))
-    #for trigram in zip(processed_words, processed_words[1:], processed_words[2:]):
-    #    if trigram[0].lower() in STOPWORDS:
-    #        continue
-    #    dic_text_field["_".join(trigram)] += 1
-    #dic_text_field["VERB_" + x[kVERB_FIELD]] = 1
-    #dic_text_field["PAGE_" + x[kPAGE_FIELD]] = 1
 
     #dic_text_field["TROPE_" + x[kTROPE_FIELD]] = 1
     X.append(dic_text_field)

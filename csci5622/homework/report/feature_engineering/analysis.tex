@@ -11,37 +11,49 @@
 
 \begin{document}
 \title{Analysis Report on Assignment 6: Feature Engineering}
-\author{Yoshinari Fujinuma}
+\author{Yoshinari Fujinuma (Kaggle username: yofu1973)}
 \date{}
 \maketitle
 
 \section{Feature Engineering on the L2 regularized Logistic Regression}
-Held out dev dataset.
 
+Strategy:
+\begin{enumerate}
+ \item Include both generalizable and meaningful feature 
+ \item Avoid unmeaning feature to avoid confusing during the training
+\end{enumerate}
+
+
+%Held out dev dataset.
 Out of the 14,000 training examples, the first 10,000 examples are used during the training, the rest of 4,000 examples are used as the held out development dataset.
 
 Features:
+\begin{enumerate}
+ \item unigram
+ \item bigram
+ \item trope names
+ \item word embeddings
+ \item named entity 
+ \item Genre of the movie (From IMDB\footnote{ftp://ftp.fu-berlin.de/pub/misc/movies/database/genres.list.gz})
+\end{enumerate}
 
-unigram
-
-word embeddings
-
-bigram
-
-trope Names
-
-Named entity 
-
-Genre of the movie
-
-
-After including enough features and throwing away the unigram feature, the accuracy of the prediction increased.
+After including enough all features except for unigrams and throwing away the unigram feature, the accuracy of the prediction increased.
 
 In the initial trial and errors, and looking into Jorndan's paper, some unigrmas such as ``kill'', ``death'' so even after we drop unigram features, we add them back to the mdoel.
 
-
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|l|r|r|r|r|}
+  \hline \bf Feature     & \bf Held out Accuracy     \\ \hline
+   All                   & 0.693 \\ \hline
+  \end{tabular}
+\end{table}
 
 \section{Error Analysis}
+
+Second episode.
+
+
 %The following two graph shows the relationship between training examples and accuracy:
 %\begin{figure}[htb]
 %  \begin{center}
@@ -71,8 +83,6 @@ In the initial trial and errors, and looking into Jorndan's paper, some unigrmas
 %  \end{tabular}
 % \end{center}
 %\end{figure}
-
-\section{What numbers get confused with each other most easily?}
 
 \end{document}
 

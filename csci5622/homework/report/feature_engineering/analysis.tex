@@ -15,102 +15,92 @@
 \date{}
 \maketitle
 
-\section{Preprocessing}
-As mentioned in \cite{Boyd-Graber:Glasgow:Zajac-2013}, stemming is a useful preprocessing to normalize input words.
-
-Many sentences in the training data include the sequence ``(SEASON\_NUMBERxEPISODE\_NUMBER)''. 
-To let the model understand that this input is equivalent to ``episode NUMBER'' and ``season NUMBER''.
-Episode normalization.
-
-Also, we mask the numbers to ``\_\_DIGIT\_\_''.
-
-\section{Feature Engineering on the L2 regularized Logistic Regression}
-
-Strategy:
+\section{Strategy}
 \begin{enumerate}
  \item Include both generalizable and meaningful feature 
  \item Avoid unmeaning feature to avoid confusing during the training
 \end{enumerate}
 
+\section{Preprocessing}
+As mentioned in \cite{Boyd-Graber:Glasgow:Zajac-2013}, stemming is a useful preprocessing to normalize input words. 
+Many sentences in the training data include the sequence ``(SEASON\_NUMBERxEPISODE\_NUMBER)''. 
+To let the model understand that this input is equivalent to ``episode NUMBER'' and ``season NUMBER''. 
+We mask two kind of input texts. First, the numbers to ``\_\_DIGIT\_\_''. 
+Second, names entities to its entity tag. we apply Named Entity Recognition (NER) to the sentence, we replaced the word with its NER tag.
+
+\section{Feature Engineering on the L2 regularized Logistic Regression}
 
 %Held out dev dataset.
-Out of the 14,000 training examples, the first 10,000 examples are used during the training, the rest of 4,000 examples are used as the held out development dataset.
+Out of the 14,784 training examples, the first 10,000 examples are used during the training, the rest of 4,784 examples are used as the held out development dataset.
 
 Features:
 \begin{enumerate}
  \item unigram
  \item bigram
- \item trope names
- \item word embeddings
- \item named entity 
+ \item trope names (e.g., whether ``Kill'' is in the trope or not)
+ %\item word embeddings
+ \item named entity (detected by what is in nltk.ne\_chunk\footnote{http://www.nltk.org/api/nltk.chunk.html})
  \item Genre of the movie (From IMDB\footnote{ftp://ftp.fu-berlin.de/pub/misc/movies/database/genres.list.gz})
 \end{enumerate}
 
-After including enough all features except for unigrams and throwing away the unigram feature, the accuracy of the prediction increased.
+%After including enough all features except for unigrams and throwing away the unigram feature, the accuracy of the prediction increased.
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|l|l|r|r|r|r|}
+  \hline \bf Feature        & \bf Held out Accuracy     \\ \hline
+   Baseline (unigrams)      & 0.6124 \\ \hline
+   +bigrams                 & 0.6302 \\ \hline
+   +tropes                  & 0.6619 \\ \hline
+   +genres                  & 0.6137 \\ \hline
+   +NER masking             & 0.6147 \\ \hline
+   +All features            & 0.6866 \\ \hline
+  \end{tabular}
+  \caption{\label{feature} Adding features one-by-one.}
+\end{table}
 
-In the initial trial and errors, and looking into Jorndan's paper, some unigrmas such as ``kill'', ``death'' so even after we drop unigram features, we add them back to the model.
+Table \ref{feature} shows the held out accuracy of adding each feature to the baseline. We can see that bigrams and tropes feature improves the baseline by more than 1\%. However, genres and NER masking improves the accuracy by less than 1\%. Therefore, we combine the NER and genre with other features; NER + tropes, genre + tropes. 
+
+An example of top weighted bigrams is ``season finale''. Spoilers often refers to what happens at the end of the story, and it makes sense that the bigram ``season finale'' is a good indicator of the given text being a spoiler.
+
+An example sentence that is predicted correctly by adding tropes feature to the baseline model is ``Or so one would hope.'' with the trope ``KillItWithFire''. With the sentence alone, it even impossible for humans to judge whether it is a spoiler or not. But with the trope, it is easy to infer that this is a spoiler. In other words, there is more spoiler-related information encoded to the trope feature. This is why it boosted the accuracy from the baseline. 
+
+In the initial trial and errors, and looking into Jordan's paper \cite{Boyd-Graber:Glasgow:Zajac-2013}, some unigrams such as ``kill'', ``death'' so even after we drop unigram features, we add them back to the model.
 
 \begin{table}[h]
   \centering
   \begin{tabular}{|l|l|r|r|r|r|}
   \hline \bf Feature        & \bf Held out Accuracy     \\ \hline
-   All                      & 0.6797 \\ \hline
-   All - unigrams           & 0.6839 \\ \hline
-   All - bigrams            & 0.6906 \\ \hline
-   All - trope names        & 0.6762 \\ \hline
+   %All features             & 0.6797 \\ \hline
+   All features             & 0.6866 \\ \hline
+   All - unigrams           & 0.6801 \\ \hline
+   All - bigrams            & 0.6931 \\ \hline
+   All - trope names        & 0.6561 \\ \hline
    %All - word embeddings    & X \\ \hline
-   All - Genre of the movie & 0.6615 \\ \hline
-   All - Named entity       & 0.6354 \\ \hline
+   All - genres             & 0.6705 \\ \hline
+   All - NER masking        & 0.6864 \\ \hline
   \end{tabular}
-  \caption{\label{feature_importance}Analysis of the importance of features by excluding one by one.}
+  \caption{\label{feature_importance}Analysis of the importance of features by excluding it one by one.}
 \end{table}
 
-According to Table \ref{feature_importance}, Named entity features is the most importnat feature. 
+According to Table \ref{feature_importance}, the trope name features is the most important feature. 
+%This result is quite surprising since if we did the NER masking alone, it only improved the held out accuracy by $0.0002$. 
 
-I tried including word2vec features by including each dimension of the word vector as a feature. 
+I tried including word2vec features by including each dimension of the word vector as a feature but it did not improve the accuracy both in held out dev set and Kaggle test set. 
 
-Note that when I exclude both bigrams and unigrams, the held out accuracy was $0.6829$ 
+%Note that when I exclude both bigrams and unigrams, the held out accuracy was $0.6829$. 
 
 \section{Error Analysis}
+However, our logistic regression model is not perfect. The logistic regression model with all features have 617 false positives (i.e. predicted True but actually False) and 882 false negatives (i.e. predicted False but actually True).
 
-We analyze the setting when the features are ``All - bigrams'' since it scored highest in the held out dataset.
+%We analyze the setting when the features are ``All - bigrams'' since it scored highest in the held out dataset.
 
-Second episode.
+The word ``kill'' or death-related words tend to get too high scores and it can result in increasing false positives. For example, the sentence ``It still doesn't kill him.'' is predicted as a spoiler but actually it is not. 
 
-The word ``kill'' or death-related words gets too high scores. 
+One false negative example is ``The next year is 1929; the Wall Street crash is only months away.''. This sentence refers to the future of the story in the movie/drama by the phrase ``next year''. This error is caused because only 2 spoiler examples in the training data includes the bigram ``next year''. Furthermore, 1 non-spoiler example in the training data includes the bigram ``next year''. As a result, the trained logistic regression model did not capture this feature as an important feature.
 
-Tropes that includes kill or death.
+%Tropes that includes kill or death.
 
 
-%The following two graph shows the relationship between training examples and accuracy:
-%\begin{figure}[htb]
-%  \begin{center}
-%   \begin{tabular}{c}
-%
-%    \begin{minipage}{0.5\hsize}
-%     \begin{center}
-%     \scalebox{0.33}
-%      {\includegraphics[]{figure_1.png}}
-%   
-%      \caption{The relationship between the number of training examples and accuracy. The value of $k$ is fixed to $3$. }
-%      \label{fig:corpus_size}
-%     \end{center}
-%    \end{minipage}
-%
-%    \begin{minipage}{0.01\hsize}
-%    \end{minipage}
-%
-%    \begin{minipage}{0.5\hsize}
-%     \begin{center}
-%      \scalebox{0.33}
-%      {\includegraphics[]{figure_2.png}}
-%      \caption{\label{k_and_accuracy}The relationship between $k$ and accuracy. The value of the number of training examples is fixed to $500$}
-%     \end{center}
-%    \end{minipage}
-%
-%  \end{tabular}
-% \end{center}
-%\end{figure}
 \bibliographystyle{plain}
 \bibliography{analysis}
 

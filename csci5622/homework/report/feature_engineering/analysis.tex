@@ -15,6 +15,15 @@
 \date{}
 \maketitle
 
+\section{Preprocessing}
+As mentioned in \cite{Boyd-Graber:Glasgow:Zajac-2013}, stemming is a useful preprocessing to normalize input words.
+
+Many sentences in the training data include the sequence ``(SEASON\_NUMBERxEPISODE\_NUMBER)''. 
+To let the model understand that this input is equivalent to ``episode NUMBER'' and ``season NUMBER''.
+Episode normalization.
+
+Also, we mask the numbers to ``\_\_DIGIT\_\_''.
+
 \section{Feature Engineering on the L2 regularized Logistic Regression}
 
 Strategy:
@@ -39,19 +48,38 @@ Features:
 
 After including enough all features except for unigrams and throwing away the unigram feature, the accuracy of the prediction increased.
 
-In the initial trial and errors, and looking into Jorndan's paper, some unigrmas such as ``kill'', ``death'' so even after we drop unigram features, we add them back to the mdoel.
+In the initial trial and errors, and looking into Jorndan's paper, some unigrmas such as ``kill'', ``death'' so even after we drop unigram features, we add them back to the model.
 
 \begin{table}[h]
   \centering
   \begin{tabular}{|l|l|r|r|r|r|}
-  \hline \bf Feature     & \bf Held out Accuracy     \\ \hline
-   All                   & 0.693 \\ \hline
+  \hline \bf Feature        & \bf Held out Accuracy     \\ \hline
+   All                      & 0.6797 \\ \hline
+   All - unigrams           & 0.6839 \\ \hline
+   All - bigrams            & 0.6906 \\ \hline
+   All - trope names        & 0.6762 \\ \hline
+   %All - word embeddings    & X \\ \hline
+   All - Genre of the movie & 0.6615 \\ \hline
+   All - Named entity       & 0.6354 \\ \hline
   \end{tabular}
+  \caption{\label{feature_importance}Analysis of the importance of features by excluding one by one.}
 \end{table}
+
+According to Table \ref{feature_importance}, Named entity features is the most importnat feature. 
+
+I tried including word2vec features by including each dimension of the word vector as a feature. 
+
+Note that when I exclude both bigrams and unigrams, the held out accuracy was $0.6829$ 
 
 \section{Error Analysis}
 
+We analyze the setting when the features are ``All - bigrams'' since it scored highest in the held out dataset.
+
 Second episode.
+
+The word ``kill'' or death-related words gets too high scores. 
+
+Tropes that includes kill or death.
 
 
 %The following two graph shows the relationship between training examples and accuracy:
@@ -83,6 +111,8 @@ Second episode.
 %  \end{tabular}
 % \end{center}
 %\end{figure}
+\bibliographystyle{plain}
+\bibliography{analysis}
 
 \end{document}
 

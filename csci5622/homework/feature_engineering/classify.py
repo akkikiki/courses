@@ -12,7 +12,7 @@ import numpy as np
 from numpy import array
 from collections import defaultdict
 from gensim.models import Word2Vec
-from lime.lime_text import LimeTextExplainer
+#from lime.lime_text import LimeTextExplainer
 from sklearn.pipeline import make_pipeline
 
 from nltk.tag import StanfordNERTagger
@@ -370,7 +370,6 @@ if __name__ == "__main__":
     if args.limit > 0:
         print("Data limit: %i out of %i" % (args.limit, len(train)))
         val = train[args.limit:]
-        # print(val)
         train = train[:args.limit]
     else:
         args.limit = len(train)
@@ -405,9 +404,7 @@ if __name__ == "__main__":
         if val:
             X_val = extract_feature_from_data(val)
 
-    #x_train = feat.train_feature(x[kTEXT_FIELD] for x in train)
     x_train = feat.train_feature(X_train)
-    #x_test = feat.train_feature(x[kTEXT_FIELD] for x in test)
     x_test = feat.test_feature(X_test)
     if val:
         x_val = feat.test_feature(X_val)
